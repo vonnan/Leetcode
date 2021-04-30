@@ -1,4 +1,5 @@
 from bisect import bisect_right
+from bisect import insort
 
 class Solution:
     def orderOfLargestPlusSign(self, N: int, mines: List[List[int]]) -> int:
@@ -9,12 +10,8 @@ class Solution:
         col = [[-1, N] for _ in range(N)]
         
         for r,c in mines:
-            row[r].append(c)
-            col[c].append(r)
-            
-        for i in range(N):
-            row[i].sort()
-            col[i].sort()
+            insort(row[r], c)
+            insort(col[c], r)
             
         res = 0
         
