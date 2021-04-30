@@ -24,7 +24,7 @@ class Solution:
                         new_combo = combo[:i] + str(new_move) +combo[i+1:]
                         if new_combo == target:
                             return steps + 1
-                        if new_combo not in sets and new_combo not in queue:
+                        if new_combo not in sets:
                             sets.add(new_combo)
                             queue.append(new_combo)
             steps += 1            
