@@ -3,35 +3,19 @@ from heapq import heappop
 from heapq import heappush
 class Solution:
     def findCheapestPrice(self, n, flights, src, dst, K):
- 
-        """
-        :type n: int
-        :type flights: List[List[int]]
-        :type src: int
-        :type dst: int
-        :type K: int
-        :rtype: int
-        """
-        graph = {}
-        for flight in flights:
-            if flight[0] in graph:
-                graph[flight[0]][flight[1]] = flight[2]
-            else:
-                graph[flight[0]] = {flight[1]:flight[2]}
-        
-        rec = {}
-        heap = [(0, -1, src)]
-        heapq.heapify(heap)
+        w = collections.defaultdict(dict)
+        for u, v, p in flights:
+            w[u][v] = p
+        heap = [(0, src, K + 1)]
+        seen = defaultdict(int)
         while heap:
-            cost, stops, city = heapq.heappop(heap)
-            if city == dst:
-                return cost
-            if stops == K or rec.get((city, stops), float('inf')) < cost:
-                continue
-            if city in graph:
-                for nei, price in graph[city].items():
-                    summ = cost + price
-                    if rec.get((nei, stops+1), float('inf')) > summ:
-                        rec[(nei, stops+1)] = summ
-                        heapq.heappush(heap, (summ, stops+1, nei))
+            p, u, K = heapq.heappop(heap)
+            seen[u] = K
+            if u == dst:
+                return p
+            if K > 0:
+                for v in w[u]:
+                    if v in seen and seen[v] >= K-1:
+                        continue
+                    heapq.heappush(heap, (p + w[u][v], v, K - 1))
         return -1
