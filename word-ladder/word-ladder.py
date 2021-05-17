@@ -1,43 +1,34 @@
-from collections import defaultdict
+from collections import deque
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-        dic = defaultdict(set)
-        n = len(beginWord)
+        if endWord not in wordList:
+            return 0
         
-        for wd in wordList:
+        dic, n = defaultdict(list), len(beginWord)
+        for word in wordList:
             for i in range(n):
-                dic[wd[:i]+"*"+wd[i+1:]].add(wd)
-                
-        queue = [beginWord]
-        steps = 1
+                dic[word[:i]+"*"+word[i+1:]].append(word)
+        
+        queue = deque([beginWord])
+        visited = set()
+        step = 1
         
         while queue:
-            next_q = set()
-            
-            while queue:
-                curr_wd = queue.pop()
-                
-                if curr_wd == endWord:
-                    return steps
-                
+            m = len(queue)
+            for _ in range(m):
+                q = queue.popleft()
+                if q == endWord:
+                    return step + 1
                 for i in range(n):
-                    mask = curr_wd[:i] + "*" + curr_wd[i+1:]
-                    if endWord in dic[mask]:
-                        return steps + 1
-                    next_q = next_q.union(dic[mask])
-                    del dic[mask]
-    
-                    next_q -= set(queue)
-            
-            queue = list(next_q)
-            steps += 1
-            
+                    mask = q[:i] + "*" + q[i+1:]
+                    if mask in dic:
+                        for word in dic[mask]:
+                            if word == endWord:
+                                return step + 1
+                            if word not in visited:
+                                visited.add(word)
+                                queue.append(word)
+                        del dic[mask]
+            step += 1
         return 0
-        
-                    
-                    
-            
-        
-        
-        
-        
+                
