@@ -1,11 +1,11 @@
 from collections import deque
 class Solution:
     def scoreOfParentheses(self, s: str) -> int:
-        stack, curr = [], 0
-        for x in s:
-            if x == "(":
-                stack.append(curr)
-                curr = 0
+        stack = [0]
+        for p in s:
+            if p =="(":
+                stack.append(0)
             else:
-                curr += stack.pop() + max(curr, 1)
-        return curr
+                last = stack.pop()
+                stack[-1] += max(last*2, 1)
+        return stack[-1]
