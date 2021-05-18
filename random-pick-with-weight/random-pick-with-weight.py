@@ -1,16 +1,21 @@
 from random import randint
-from bisect import bisect_left
-
 class Solution:
 
     def __init__(self, w: List[int]):
-        self.w = w
-        for i in range(1, len(w)):
-            self.w[i] += self.w[i-1]
+        self.w = list(accumulate(w))
 
     def pickIndex(self) -> int:
         r = randint(1, self.w[-1])
-        return bisect_left(self.w, r)
+        left, right = 0, len(self.w)
+        while left < right:
+            mid = (left + right)//2
+            if self.w[mid] == r:
+                return mid
+            elif self.w[mid] > r:
+                right = mid
+            else:
+                left = mid + 1
+        return left
 
 
 # Your Solution object will be instantiated and called as such:
