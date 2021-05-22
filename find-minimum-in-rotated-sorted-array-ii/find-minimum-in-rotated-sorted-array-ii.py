@@ -1,27 +1,18 @@
 class Solution:
     def findMin(self, nums: List[int]) -> int:
-        sets = set(nums)
-        visited = set([])
-        lst = []
         
-        for num in nums:
-            if num not in visited:
-                lst.append(num)
-                visited.add(num)
-        
-        left, right = 0, len(lst) -1
-        
-        if len(lst) <=2:
-            return min(lst)
+        left, right = 0, len(nums) -1
         
         while left < right:
             mid = (left + right) //2
-            if lst[mid] > lst[left] and lst[mid] > lst[right]:
+            if nums[mid] > nums[right]:
                 left = mid +1
-            else:
+            elif nums[mid] < nums[right]:
                 right = mid
-            if right - left <=2:
-                return min(lst[left: right + 1])
+            else:
+                right -= 1
+        
+        return nums[left]
 
         
                 
