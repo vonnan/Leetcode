@@ -1,25 +1,33 @@
 class Solution:
     def canReach(self, s: str, minJump: int, maxJump: int) -> bool:
-        if s[-1] != "0":
+        if s[-1] !="0":
             return False
+        n = len(s)
         
-        queue = deque([0])
+        dq = deque([0])
+        maxPos = 0
+        visited = set([0])
         
-        n, maxPos = len(s), 0
-        
-        while queue:
-            start = queue.popleft()
+        while dq:
+            start  = dq.popleft()
             if start == n-1:
                 return True
+            for nxt in range(max(start + minJump, maxPos +1), min(start + maxJump, n-1) +1):
+                if nxt not in visited and s[nxt] == "0":
+                    dq.append(nxt)
+                    
+            maxPos = start + maxJump
+                    
             
-            for j in range(max(start + minJump, maxPos), min(start +maxJump, n-1) +1):
-                if s[j] == "0":
-                    queue.append(j)
-            
-            maxPos = max(maxPos, start + maxJump)
-                
         return False
-        
+            
+            
+            
+            
+                        
+                        
+                
+            
             
                 
             
