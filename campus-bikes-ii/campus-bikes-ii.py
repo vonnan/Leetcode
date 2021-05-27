@@ -11,7 +11,7 @@ class Solution:
                 
         heap =[(0,0,0)]
         seen = set()
-        
+        print(dist)
         while heap:
             cost, worker, taken_state = heappop(heap)
             
@@ -22,6 +22,8 @@ class Solution:
             
             if worker == row:
                 return cost
+            
+            print(worker, taken_state, cost)
             
             for c in range(col):
                 if taken_state & (1<<c) ==0:
