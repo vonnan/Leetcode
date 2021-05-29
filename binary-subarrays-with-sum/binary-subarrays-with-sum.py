@@ -8,6 +8,7 @@ class Solution:
         res = 0
         if goal ==0:
             return sum(val*(val-1)//2 for _, val in counter.items())
+        
         for key in sorted(counter.keys()):
             if key - goal in counter:
                 res += counter[key] * counter[key - goal]
