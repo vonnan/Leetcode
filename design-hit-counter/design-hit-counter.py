@@ -1,31 +1,36 @@
+from collections import Counter
+from collections import deque
 class HitCounter:
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.counter = defaultdict(int)
+        
+        self.queue = deque([])
+        
 
     def hit(self, timestamp: int) -> None:
         """
         Record a hit.
         @param timestamp - The current timestamp (in seconds granularity).
         """
-        self.counter[timestamp] += 1
-        
-        
+        self.queue.append(timestamp)
+               
 
     def getHits(self, timestamp: int) -> int:
         """
         Return the number of hits in the past 5 minutes.
         @param timestamp - The current timestamp (in seconds granularity).
         """
-        res = 0
-        for key, val in self.counter.items():
-            if key > timestamp - 300:
-                res += val
-                
-        return res
+        while self.queue and self.queue[0] <=  timestamp-300:
+            self.queue.popleft()
+        
+        return len(self.queue)
+            
+            
+        
+        
 
 
 # Your HitCounter object will be instantiated and called as such:
