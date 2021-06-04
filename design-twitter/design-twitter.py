@@ -28,7 +28,6 @@ class Twitter:
     def getNewsFeed(self, userId: int) -> List[int]:
         """
         Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent.
-        """
         heap = []
         for ts, tweetId in self.post[userId]:
             heappush(heap, (ts, tweetId))
@@ -44,7 +43,12 @@ class Twitter:
             else:
                 break
         return res
+        """
         
+        candidates = (self.post[u] for u in (self.follower[userId] | {userId}))
+        merged_list = heapq.merge(*candidates)
+        return [val for ts, val in list(merged_list)[:10]]
+
            
 
     def follow(self, followerId: int, followeeId: int) -> None:
