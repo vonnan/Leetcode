@@ -3,12 +3,13 @@ class Solution:
         n = len(nums)
         path = [0 for _ in range(n)]
         status = [False for _ in range(n+1)]
-        res = []
+        res = set()
         
         def dfs(u):
             if u == n:
-                res.append(path[:])
+                res.add(tuple(path[:]))
                 return 
+    
             for j in range(n):
                 if not status[j]:
                     status[j] = True
