@@ -1,26 +1,16 @@
-from heapq import heappush
 class Solution:
     def maxSumMinProduct(self, nums: List[int]) -> int:
         presum = [0]
-        for i, num in enumerate( nums + [0]):
-            presum.append(num + presum[-1])
+        for num in nums:
+            presum.append(presum[-1] + num)
         res, mod = 0, 10**9 + 7
-        
         left = []
         
-        # left is to store the left (num, i)
-        
-        for i, num in enumerate(nums+[0]):
-            start = i
+        for i, num in enumerate(nums + [0]):
+            start_idx = i
             while left and left[-1][0] >= num:
-                big, start = left.pop()
-                res = max(res, (presum[i]- presum[start])* big)
-            left.append((num, start))
+                prev, start_idx = left.pop()
+                res = max(res, (presum[i] - presum[start_idx])*prev)
+            left.append((num, start_idx))
             
         return res % mod
-            
-        
-                    
-                    
-                
-            
