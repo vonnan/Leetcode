@@ -1,9 +1,5 @@
 from collections import Counter
 class Solution:
     def canPermutePalindrome(self, s: str) -> bool:
-        ct = sum(x%2 for x in Counter(s).values())
-        n = len(s)
-        if ct - n%2 >0:
-            return False
-        else:
-            return True
+        lst = Counter(s).values()
+        return len(s)%2 == sum(l%2 for l in lst)
