@@ -1,39 +1,29 @@
 from sortedcontainers import SortedList
+
 class MovieRentingSystem:
+    def __init__(self, n, entries):
+        self.shops = defaultdict(SortedList)   #movie -> (price, shop)
+        self.shop_movie = {}    #(shop, movie) -> price
+        self.rented = SortedList()  # (price, shop, movie)
+        for s, m, p in entries:
+            self.shops[m].add((p, s))
+            self.shop_movie[s, m] = p
 
-    def __init__(self, n: int, entries: List[List[int]]):
-        self.dic = defaultdict(SortedList)
-        self.shop = defaultdict(set)
-        self.price = defaultdict(list)
-        self.rented = SortedList()
-        for shop, movie, price in entries:
-            self.dic[movie].add((price, shop))
-            self.shop[shop].add(movie)
-            self.price[(shop, movie)] = price
+    def search(self, movie):
+        return [y for _,y in self.shops[movie][:5]]
         
-    def search(self, movie: int) -> List[int]:
-        return [shop for _, shop in self.dic[movie][:5]]
-        
-    def rent(self, shop: int, movie: int) -> None:
-        if movie in self.shop[shop]:
-            p = self.price[(shop, movie)]
-            self.rented.add((p, shop, movie))
-            self.dic[movie].remove((p, shop))
-            self.shop[shop].add(movie)
-      
-    def drop(self, shop: int, movie: int) -> None:
-        p = self.price[(shop, movie)]
-        self.dic[movie].add((p, shop))
-        self.rented.remove((p, shop, movie))
-        self.shop[shop].add(movie)
-        
-    def report(self) -> List[List[int]]:
-        return [(s,m) for _,s,m in self.rented[:5]]
-    
-            
-        
-        
+    def rent(self, shop, movie):
+        price = self.shop_movie[shop, movie]
+        self.shops[movie].remove((price, shop))
+        self.rented.add((price, shop, movie))
 
+    def drop(self, shop, movie):
+        price = self.shop_movie[shop, movie]
+        self.shops[movie].add((price, shop))
+        self.rented.remove((price, shop, movie))
+        
+    def report(self):
+        return [[y,z] for _,y,z in self.rented[:5]]
 
 # Your MovieRentingSystem object will be instantiated and called as such:
 # obj = MovieRentingSystem(n, entries)
