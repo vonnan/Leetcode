@@ -2,6 +2,11 @@ class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         row, col = len(board), len(board[0])
         seen = set()
+        sets = set([])
+        for r in range(row):
+            for c in range(col):
+                if board[r][c] in set(word):
+                    sets.add((r,c))
         
         path = [(0,1), (0, -1), (1, 0), (-1,0)]
         
@@ -10,6 +15,8 @@ class Solution:
                 return True
             for dr, dc in path:
                 nr, nc = r + dr, c + dc
+                if (nr, nc) not in sets:
+                    continue
                 if 0 <=  nr <row and 0 <= nc < col and (nr, nc) not in seen and board[nr][nc] ==word[ct]:
                     seen.add((nr, nc))
                     if backtracking(nr, nc, ct + 1):
