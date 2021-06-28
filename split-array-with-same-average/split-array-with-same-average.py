@@ -15,8 +15,10 @@ class Solution:
             for size in range((n+1)//2, 0, -1):
                 for prev in memo[size -1]:
                     memo[size].add(prev + num)
+                    
                     if (prev + num)* n == tot * size:
                         return True
+                
         return False
                 
                 
