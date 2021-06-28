@@ -1,16 +1,12 @@
 from collections import Counter
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        count = Counter({0 : 1})
-        
+        counter = Counter({0:1})
         for num in nums:
             step = Counter()
-            for key in count:
-                step[key + num] += count[key]
-                step[key - num] += count[key]
-            count = step
-        
-        return count[target]
-            
-        
-        
+            for key in counter:
+                step[key + num] += counter[key]
+                step[key - num] += counter[key]
+            counter = step
+        return counter[target]
+                
