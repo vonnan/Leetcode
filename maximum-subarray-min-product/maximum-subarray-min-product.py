@@ -2,15 +2,18 @@ class Solution:
     def maxSumMinProduct(self, nums: List[int]) -> int:
         presum = [0]
         for num in nums:
-            presum.append(presum[-1] + num)
-        res, mod = 0, 10**9 + 7
+            presum.append(num + presum[-1])
+            
+        n, mod = len(nums), 10**9 + 7
         left = []
+        res = 0
         
         for i, num in enumerate(nums + [0]):
-            start_idx = i
-            while left and left[-1][0] >= num:
-                prev, start_idx = left.pop()
-                res = max(res, (presum[i] - presum[start_idx])*prev)
-            left.append((num, start_idx))
+            j = i
+            while left and left[-1][1] >= num:
+                j, m = left.pop()
+                res = max(res, (presum[i] - presum[j])*m )
+            left.append((j, num))
             
         return res % mod
+            
