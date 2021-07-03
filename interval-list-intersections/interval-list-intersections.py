@@ -1,30 +1,29 @@
-from bisect import bisect
 class Solution:
-    def intervalIntersection(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
-        res = []
+    def intervalIntersection(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:
+        m, n = len(firstList), len(secondList)
         i, j = 0, 0
-        m, n = len(A), len(B)
+        
+        res = []
         
         while i < m and j < n:
-            l1, r1 = A[i]
-            l2, r2 = B[j]
+            l1, r1 = firstList[i]
+            l2, r2 = secondList[j]
             
-            left = max(l1, l2)
-            
-            if r1 < r2:
+            if r1< l2:
                 i += 1
-                if left <= r1:
-                    res.append((left, r1))
-                    
-            else:
+            
+            elif r2 < l1:
                 j += 1
-                if left <= r2:
-                    res.append((left, r2))
+                
+            else:
+                l = max(l1, l2)
+                if r1 < r2:
+                    i += 1
+                    res.append((l, r1))
+                else:
+                    j += 1
+                    res.append((l, r2))
                     
         return res
             
                 
-            
-                    
-        
-        
