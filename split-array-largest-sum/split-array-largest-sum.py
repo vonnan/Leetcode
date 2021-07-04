@@ -1,21 +1,20 @@
 class Solution:
     def splitArray(self, nums: List[int], m: int) -> int:
         left, right = max(nums), sum(nums)
-        
         while left < right:
             mid = (left + right)//2
-            count, curr = 1, 0
+            ct, group = 0, 1
             for num in nums:
-                curr += num
-                if curr > mid:
-                    count += 1
-                    curr = num
-                    if count > m:
+                if ct + num > mid:
+                    group += 1
+                    ct = num
+                    if group > m:
+                        left = mid + 1
                         break
-            if count > m:
-                left = mid + 1
-            else:
+                else:
+                    ct += num
+            if group <= m:
                 right = mid
-        
         return left
+            
             
