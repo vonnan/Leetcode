@@ -3,12 +3,15 @@ class Solution:
         presum = [0]
         for num in nums:
             presum.append(presum[-1] + num)
-            
-        dic = defaultdict(list)
-        res = 0
-        for i, num in enumerate(presum):
-            if num - k in dic:
-                res += len(dic[num - k])
-            dic[num].append(i)
+        
+        dic, res = {}, 0
+        for key in presum:
+            if key - k in dic:
+                res += dic[key - k]
+                
+            if key not in dic:
+                dic[key] = 1
+            else:
+                dic[key] += 1
+                
         return res
-    
