@@ -1,15 +1,14 @@
-from collections import defaultdict
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        prefix = defaultdict(int)
-        prefix[0] = 1
-        curr = 0
-        res = 0
-        
+        presum = [0]
         for num in nums:
-            curr += num
-            res += prefix[curr - k]
-            prefix[curr] += 1
+            presum.append(presum[-1] + num)
             
+        dic = defaultdict(list)
+        res = 0
+        for i, num in enumerate(presum):
+            if num - k in dic:
+                res += len(dic[num - k])
+            dic[num].append(i)
         return res
-            
+    
