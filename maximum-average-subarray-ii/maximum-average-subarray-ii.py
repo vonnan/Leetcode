@@ -1,29 +1,28 @@
 class Solution:
     def findMaxAverage(self, nums: List[int], k: int) -> float:
-        left, right = min(nums), max(nums)
+        lo, hi = min(nums), max(nums)
         
         def check(avg):
-            tot = sum(nums[i] - avg for i in range(k))
-            if tot >=0:
+            tot = sum(nums[:k]) - avg * k
+            if tot >= 0:
                 return True
-            prev, prev_min = 0, 0
+            prev, prev_min =0 ,0
             for i in range(k, len(nums)):
                 tot += nums[i] - avg
                 prev += nums[i-k] - avg
-                prev_min = min(prev_min, prev)
+                prev_min = min(prev, prev_min)
                 if tot >= prev_min:
                     return True
                 
             return False
         
-        while right - left > 10**(-6):
-            mid = (left + right)/2
+        while hi - lo > 10**(-6):
+            mid = (hi + lo)/2
             if check(mid):
-                left = mid
+                lo = mid
             else:
-                right = mid
-       
-        return left
+                hi = mid
                 
-                
-                
+        return lo
+            
+            
