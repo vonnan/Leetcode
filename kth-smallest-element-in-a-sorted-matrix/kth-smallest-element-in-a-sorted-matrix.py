@@ -1,9 +1,5 @@
-from bisect import insort
 class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
-        lst = matrix[0]
-        n = len(matrix)
-        for r in range(1, len(matrix)):
-            for c in range(n):
-                insort(lst, matrix[r][c])
+        lst = sorted([matrix[i][j] for i in range(len(matrix)) for j in range(len(matrix[0]))])
         return lst[k-1]
+        
