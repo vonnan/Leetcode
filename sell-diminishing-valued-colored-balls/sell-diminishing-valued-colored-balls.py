@@ -1,19 +1,20 @@
 class Solution:
-    def maxProfit(self, inventory: List[int], orders: int) -> int:
-        left, right, mod = 0, max(inventory), 10 ** 9 + 7
-        counts = lambda i: sum(count - i + 1 for count in inventory if count >= i)
-        while left < right:
-            mid = left + (right - left) // 2
-            if counts(mid) > orders:
-                left = mid + 1
-            else:
-                right = mid
-        result = sum((count + left) * (count - left + 1) // 2 for count in inventory if count >= left) % mod
-        return (result + outbound * (left - 1) if (outbound := orders - counts(left)) > 0 else result) % mod       
-           
+    def maxProfit(self, A: List[int], orders: int) -> int:
         
+        left, right, mod = 1, max(A), 10**9 + 7
+        
+        while left < right:
+            mid = (left + right + 1)//2
+            if sum(a - mid + 1 for a in A if a >= mid) < orders:
+                right = mid - 1
+            else:
+                left = mid
+                
+        print(left)
+        res = sum((a + left) * (a - left + 1)//2 for a in A if a >= left) % mod
+        tot = sum(a - left + 1 for a in A if a >= left)
+        if tot > orders:
+            res -= (tot - orders) * left 
             
-            
-            
-            
+        return res % mod
         
