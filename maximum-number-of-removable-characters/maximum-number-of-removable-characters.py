@@ -1,28 +1,26 @@
 class Solution:
-    def maximumRemovals(self, s: str, p: str, removable):
+    def maximumRemovals(self, s: str, p: str, A):
         def check(m):
-            lst = list(s)
-            sets = set(removable[:m])
+            sets = set(A[:m])
             j = 0
-            for i,ch in enumerate(s):
+            for i, ch in enumerate(s):
                 if i in sets:
                     continue
-                
                 if ch == p[j]:
                     j += 1
                     if j == len(p):
                         return True
-                    
             return False
-             
-        l, r = 0, len(removable)
-        while l < r:
-            mid = (l+r+1)//2
+        
+        left, right = 0, len(A)
+        while left < right:
+            mid = (left + right+ 1)//2
             if check(mid):
-                l = mid 
+                left = mid
             else:
-                r = mid - 1
-        return l
+                right = mid - 1
+                
+        return left
         
                 
                 
