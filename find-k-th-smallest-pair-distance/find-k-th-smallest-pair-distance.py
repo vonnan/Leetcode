@@ -2,15 +2,13 @@ from bisect import bisect
 class Solution:
     def smallestDistancePair(self, nums: List[int], k: int) -> int:
         nums.sort()
-        left, right = 0, nums[-1] - nums[0]
-        
-        while left < right:
-            mid = (left + right)//2
-            ct = 0
-            for i, num in enumerate(nums):
-                ct += bisect(nums, num + mid) - (i + 1)
-            if ct < k:
-                left = mid + 1
+        l, r = 0, nums[-1] - nums[0]
+        while l < r:
+            mid = (l + r)//2
+            if sum(bisect(nums, nums[i] + mid) - (i+1) for i in range(len(nums))) >= k:
+                r = mid
             else:
-                right = mid
-        return left
+                l = mid + 1
+        return l
+                
+            
