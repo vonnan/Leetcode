@@ -1,13 +1,12 @@
 from bisect import bisect
 class Solution:
-    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
-        left, right = matrix[0][0], matrix[-1][-1]
-        
-        while left < right:
-            mid = (left + right)//2
-            if sum(bisect(row, mid) for row in matrix) < k:
-                left = mid + 1
+    def kthSmallest(self, A: List[List[int]], k: int) -> int:
+        lo, hi = A[0][0], A[-1][-1]
+        while lo < hi:
+            mid = (lo + hi)//2
+            if sum(bisect(row, mid) for row in A) >= k:
+                hi = mid
             else:
-                right = mid
-                
-        return left
+                lo = mid + 1
+        return lo
+            
