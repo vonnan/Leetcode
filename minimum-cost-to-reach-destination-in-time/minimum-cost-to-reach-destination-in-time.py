@@ -2,33 +2,32 @@ from heapq import heappop
 from heapq import heappush
 
 class Solution:
-    def minCost(self, maxTime: int, edges: List[List[int]], passingFees: List[int]) -> int:
-        n = len(passingFees)
+    def minCost(self, maxTime: int, edges: List[List[int]], A: List[int]) -> int:
         
-        g = [[] for i in range(n)]
-        for e in edges:
-            g[e[0]].append((e[1], e[2]))
-            g[e[1]].append((e[0], e[2]))
-            
-        times = {}
+        graph = defaultdict(list)
         
-        pq = [(passingFees[0],0,0)]
+        for u,v,t in edges:
+            graph[u].append((v,t))
+            graph[v].append((u, t))
+      
+        n = len(A)
         
-        while pq:
-            cost, node, time = heapq.heappop(pq)
-            
-            if time > maxTime:
-                continue
-            
+        passtime = {}
+        
+        heap = [(A[0], 0, 0)]
+        while heap:
+            cost, time, node = heappop(heap)
             if node == n-1:
                 return cost
             
-            if node not in times or times[node] > time:
-                times[node] = time
-                for nbor, trip in g[node]:
-                    heapq.heappush(pq, (passingFees[nbor]+cost, nbor, time+trip))
+            if node not in passtime or passtime[node] > time:
+                passtime[node] = time
+                for v, t in graph[node]:
+                    if time + t <= maxTime:
+                        heappush(heap, (cost + A[v], time + t, v))
+            
+                
+        return -1
             
             
-    
-        return -1            
             
