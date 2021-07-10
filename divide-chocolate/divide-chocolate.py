@@ -1,23 +1,23 @@
 class Solution:
-    def maximizeSweetness(self, sweetness: List[int], K: int) -> int:
-        left, right = min(sweetness), sum(sweetness)//(K+1)
-        res = right
+    def maximizeSweetness(self, A: List[int], k: int) -> int:
+        k += 1
+        left, right = min(A), sum(A)//k
         while left < right:
             mid = (left + right)//2
-            ct, group = 0, 1
-            for x in sweetness:
-                if ct + x > mid:
-                    group += 1
-                    ct = 0
-                    if group > K + 1:
-                        break
+            res, ct = 0, 1
+            for i, a in enumerate(A):
+                if res + a > mid:
+                    res = 0
+                    ct += 1
                 else:
-                    ct += x
-            if group > K + 1:
+                    res += a
+            
+            
+            if ct > k:
                 left = mid + 1
             else:
                 right = mid
         
         return left
-            
                 
+                    
