@@ -4,14 +4,12 @@ class Solution:
         for num in nums:
             presum.append(presum[-1] + num)
         
-        dic, res = {}, 0
-        for key in presum:
-            if key - k in dic:
-                res += dic[key - k]
-                
-            if key not in dic:
-                dic[key] = 1
-            else:
-                dic[key] += 1
-                
+        dic = defaultdict(int)
+        res = 0
+        for i, num in enumerate(presum):
+            if num - k in dic:
+                res += dic[num - k]
+            dic[num] += 1
+            
         return res
+            
