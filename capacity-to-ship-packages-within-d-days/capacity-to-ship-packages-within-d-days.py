@@ -1,18 +1,24 @@
 class Solution:
-    def shipWithinDays(self, weights: List[int], D: int) -> int:
-        left, right = max(weights), sum(weights)
-        while left < right:
-            mid = (left + right)//2
-            days, curr = 1, 0
+    def shipWithinDays(self, weights: List[int], days: int) -> int:
+        lo, hi = max(weights), sum(weights)
+        def check(x):
+            ct, res = 0, 1
             for w in weights:
-                if curr + w > mid:
-                    days += 1
-                    curr = w
+                if ct + w <= x:
+                    ct += w
                 else:
-                    curr += w
-            if days > D:
-                left = mid + 1
+                    ct = w
+                    res += 1
+                    if res > days:
+                        return False
+            return True
+                        
+        while lo < hi:
+            mid = (lo + hi)//2
+            if check(mid):
+                hi = mid
             else:
-                right = mid
-        return left
-                    
+                lo = mid + 1
+        
+        return lo
+                
