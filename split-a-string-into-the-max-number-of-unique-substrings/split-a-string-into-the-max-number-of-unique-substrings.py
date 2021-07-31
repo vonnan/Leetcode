@@ -8,12 +8,14 @@ class Solution:
             
             res = 0
             
-            for i in range(1, len(s) +1):
-                candidate = s[:i]
-                if candidate not in seen and len(s) -i  >= res:
-                    seen.add(candidate)
+            for i in range(1, len(s) + 1):
+                if s[:i] not in seen and len(s) - i + 1 > res:
+                    seen.add(s[:i])
                     res = max(res, 1 + dfs(s[i:], seen))
-                    seen.remove(candidate)
+                    seen.remove(s[:i])
             return res
         
         return dfs(s, seen)
+    
+    
+        
