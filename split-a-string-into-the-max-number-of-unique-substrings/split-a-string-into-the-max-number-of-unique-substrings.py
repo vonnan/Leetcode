@@ -10,7 +10,7 @@ class Solution:
             
             for i in range(1, len(s) +1):
                 candidate = s[:i]
-                if candidate not in seen and len(s) -i >= res:
+                if candidate not in seen and len(s) -i  >= res:
                     seen.add(candidate)
                     res = max(res, 1 + dfs(s[i:], seen))
                     seen.remove(candidate)
