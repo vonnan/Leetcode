@@ -1,10 +1,9 @@
-from bisect import bisect
 class Solution:
     def combinationSum2(self, A: List[int], target: int) -> List[List[int]]:
         A.sort()
-        res = []
+        res, curr = [], []
         
-        def dfs(curr, pos, target):
+        def dfs(pos, target):
             if target == 0:
                 res.append(curr.copy())
             
@@ -16,11 +15,11 @@ class Solution:
                 if a == prev:
                     continue
                 curr.append(a)
-                dfs(curr, i +1, target - a)
+                dfs(i +1, target - a)
                 curr.pop()
                 prev = a
         
-        dfs([], 0, target)
+        dfs(0, target)
         
         return res
         
