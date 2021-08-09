@@ -5,7 +5,7 @@ class Solution:
         
         res = []
         m = k//2
-        print(lst, m)
+        
         def median(lst):
             if k % 2:
                 res.append(lst[m])
@@ -13,6 +13,7 @@ class Solution:
                 res.append((lst[m] + lst[m-1])/2)
         
         median(lst)
+        
         for i in range(1, len(nums) - k +1):
             lst.remove(nums[i - 1])
             insort(lst, nums[i + k - 1])
