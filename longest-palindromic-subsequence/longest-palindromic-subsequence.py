@@ -8,9 +8,9 @@ class Solution:
         def dp(i, j):
             if (i, j) not in memo:
                 if i > j:
-                    memo[(i,j)] = 0
+                    return 0
                 elif i == j:
-                    memo[(i,j)] = 1
+                    return 1
                 else:
                     if s[i] == s[j]:
                         memo[(i, j)] = 2+ dp(i+1, j-1)
