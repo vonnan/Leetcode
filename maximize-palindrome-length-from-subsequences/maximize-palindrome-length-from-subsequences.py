@@ -3,7 +3,7 @@ class Solution:
         word = word1 + word2
         n1, n = len(word1), len(word)
         
-        @lru_cache(None)
+        @cache
         def dp(i,j):
             if i >= j:
                 return i == j
@@ -12,7 +12,7 @@ class Solution:
             else:
                 return max(dp(i, j-1), dp(i + 1, j))
         ans = 0   
-        for x in set(word):
+        for x in ascii_lowercase:
             idx = word1.find(x)
             jdx = word2.rfind(x)
             if idx != -1 and jdx != -1:
