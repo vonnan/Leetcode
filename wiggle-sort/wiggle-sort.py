@@ -3,8 +3,15 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        lst = sorted(nums)
         n = len(nums)
-        nums[::2] = lst[:(n+1)//2]
-        nums[1::2] = lst[(n+1)//2:]
-            
+        if n < 2:
+            return nums
+        
+        for i in range(1,n):
+            if i %2:
+                if nums[i-1] > nums[i]:
+                    nums[i-1], nums[i] = nums[i], nums[i-1]
+                if i +1 <n and nums[i+1]> nums[i]:
+                    nums[i], nums[i+1] = nums[i+1], nums[i]
+                
+                
