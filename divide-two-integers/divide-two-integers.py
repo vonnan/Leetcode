@@ -1,4 +1,4 @@
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:
-        ans = int(dividend/divisor)
-        return ans if -2**31 <= ans <= 2**31-1 else 2**31-1
+        x = int(dividend/divisor)
+        return x if-2**31 <= x < 2**31 else 2 **31 -1
