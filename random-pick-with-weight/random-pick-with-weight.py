@@ -1,3 +1,4 @@
+
 from random import randint
 from bisect import bisect_left
 class Solution:
@@ -6,10 +7,11 @@ class Solution:
         self.lst = w
         for i in range(1, len(w)):
             self.lst[i] += self.lst[i-1]
-            
+
     def pickIndex(self) -> int:
-        val = randint(1, self.lst[-1])
-        return bisect_left(self.lst, val)
+        x = randint(1, self.lst[-1])
+        return bisect_left(self.lst, x)
+        
         
 
 
