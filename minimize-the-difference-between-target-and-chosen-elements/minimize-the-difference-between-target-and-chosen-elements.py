@@ -1,26 +1,29 @@
-from bisect import bisect_left
+from heapq import heappush
+
 class Solution:
     def minimizeTheDifference(self, mat: List[List[int]], target: int) -> int:
+        """
         sets = {0}
-        tot = 0
-        for r in range(len(mat)):
-            mat[r].sort()
-            tot += mat[r][0]
         
-        if target <= tot:
-            return tot - target
-        
-        else:
-            res = target - tot
-            
         for row in mat:
+            temp, heap = set(), []
+            for num in row:
+                for prev in sorted(list(sets)):
+                    if num + prev > target:
+                        heappush(heap, num + prev)
+                        break
+                    else:
+                        temp.add(num + prev)
+            if heap:
+                temp.add(heap[0])
             
-            sets = {num + prev for num in row for prev in sets}
+            sets = temp
+        return min(abs(target - num) for num in sets)
+        """       
+        nums = {0}
         
-        return min(abs(num - target) for num in sets)
+        for row in mat:
+            nums = {num + prev for prev in nums for num in row }
             
-
-        
-        
-        
+        return min(abs(n - target) for n in nums)
         
