@@ -1,29 +1,13 @@
-from heapq import heappush
-
 class Solution:
     def minimizeTheDifference(self, mat: List[List[int]], target: int) -> int:
-        """
-        sets = {0}
-        
+        bits = 1
         for row in mat:
-            temp, heap = set(), []
-            for num in row:
-                for prev in sorted(list(sets)):
-                    if num + prev > target:
-                        heappush(heap, num + prev)
-                        break
-                    else:
-                        temp.add(num + prev)
-            if heap:
-                temp.add(heap[0])
+            temp = 0
+            for x in set(row):
+                temp |= bits << x
+            bits = temp
             
-            sets = temp
-        return min(abs(target - num) for num in sets)
-        """       
-        nums = {0}
-        
-        for row in mat:
-            nums = {num + prev for prev in nums for num in row }
+        for x in range(5000):
+            if bits >> target + x & 1 or x < target and bits >> target -x & 1:
+                return x
             
-        return min(abs(n - target) for n in nums)
-        
