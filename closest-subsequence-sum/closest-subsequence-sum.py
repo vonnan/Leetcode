@@ -1,23 +1,30 @@
+
 class Solution:
     def minAbsDifference(self, nums: List[int], goal: int) -> int:
-        n = len(nums)
-        st1 = {0}
-        st2 = {0}
-        for i in range(n // 2):
-            st1 |= {x + nums[i] for x in st1}
-        for i in range(n // 2, n):
-            st2 |= {x + nums[i] for x in st2}
-        st1, st2 = sorted(st1), sorted(st2)
-        n1, n2 = len(st1), len(st2)
-        i, j = 0, n2 - 1
-        res = abs(goal)
-        while i <= n1 - 1 and j >= 0:
-            if st1[i] + st2[j] - goal > 0:
-                res = min(res, st1[i] + st2[j] - goal)
-                j -= 1
-            elif st1[i] + st2[j] - goal < 0:
-                res = min(res, goal - st1[i] - st2[j])
-                i += 1
-            else:
+        sets1, sets2 = set([0]), set([0])
+        res, n = abs(goal), len(nums)
+        
+        for num in nums[:n//2]:
+            sets1 |= {num + prev for prev in sets1}
+        for num in nums[n//2:]:
+            sets2 |= {num + prev for prev in sets2}
+        
+        sets1, sets2 = sorted(sets1), sorted(sets2)
+        n1, n2 = len(sets1), len(sets2)
+        
+        l, r = 0, n2-1
+        while l < n1 and r >=0:
+            res = min(res, abs(sets1[l] + sets2[r] - goal))
+            if res == 0:
                 return 0
+            if sets1[l] + sets2[r]> goal:
+                r -= 1
+            elif sets1[l] + sets2[r] < goal:
+                l += 1
         return res
+            
+        
+        
+        
+        
+        
