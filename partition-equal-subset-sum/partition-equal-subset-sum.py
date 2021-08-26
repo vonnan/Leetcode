@@ -19,7 +19,7 @@ class Solution:
             #to speed up
             temp = sets.copy()
             for x in temp:
-                if num + x <= target:
+                if num + x not in sets:
                     sets.add(num + x)
                     if num + x == target:
                         return True
