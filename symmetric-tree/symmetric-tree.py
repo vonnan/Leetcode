@@ -13,3 +13,4 @@ class Solution:
             return root1.val == root2.val and helper(root1.right, root2.left) and helper(root1.left, root2.right)
         
         return helper(root, root)
+        
