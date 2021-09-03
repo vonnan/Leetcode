@@ -9,5 +9,5 @@ class Solution:
                 counter[s[left]] -= 1
                 left += 1
             res = max(res, right - left + 1)
-            
+        
         return res
