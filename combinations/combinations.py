@@ -1,19 +1,6 @@
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
-        res = set([])
+        if k == 0:
+            return [[]]
         
-        nums = [i for i in range(1, n+1)]
-        
-        def dfs(nums, path):
-            if len(path) > k:
-                return
-            
-            if len(path) == k:
-                res.add(tuple(path))
-                
-            for i in range(len(nums)):
-                dfs(nums[i+1:], path + [nums[i]])
-                
-        dfs(nums, [])
-        
-        return res
+        return [x + [tail] for tail in range(n, k-1, -1) for x in self.combine(tail-1, k-1)]
