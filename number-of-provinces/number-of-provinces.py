@@ -7,17 +7,16 @@ class Solution:
                 UF[x] = find(UF[x])
             return UF[x]
         
-        def union(x, y):
+        def union(x,y):
             UF.setdefault(x, x)
             UF.setdefault(y, y)
             UF[find(x)] = find(y)
-            
-        row= len(isConnected)
         
-        for r in range(row):
-            for c in range(row):
+        n = len(isConnected)
+        
+        for r in range(n):
+            for c in range(n):
                 if isConnected[r][c] == 1:
-                    union(r, c)
+                    union(r,c)
         
-        return len(set([find(r) for r in range(row)]))
-        
+        return len(set(find(i) for i in range(n)))
