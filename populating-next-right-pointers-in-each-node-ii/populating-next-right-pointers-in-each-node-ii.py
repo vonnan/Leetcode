@@ -17,16 +17,14 @@ class Solution:
             
             if pt in dic:
                 dic[pt].next = node
-                
+            
             dic[pt] = node
             node.next = None
+            
             dfs(node.left, pt + 1)
             dfs(node.right, pt + 1)
-        
+            
         dfs(root, 0)
         return root
-        
-            
-            
-            
+                
                 
