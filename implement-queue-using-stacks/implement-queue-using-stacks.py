@@ -22,13 +22,15 @@ class MyQueue:
         """
         Get the front element.
         """
-        return self.q[0]
+        if self.q:
+            return self.q[0]
+        
 
     def empty(self) -> bool:
         """
         Returns whether the queue is empty.
         """
-        return len(self.q) == 0
+        return len(self.q)== 0
 
 
 # Your MyQueue object will be instantiated and called as such:
