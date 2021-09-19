@@ -1,22 +1,19 @@
 class Solution:
-    def combinationSum(self, nums: List[int], target: int) -> List[List[int]]:
-        res = set([])
-        nums.sort()
-        n = len(nums)
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        n, res = len(candidates), set([])
+        candidates.sort()
         
         def dfs(remaining, pos, path):
-
             if remaining == 0:
                 res.add(tuple(path))
-            else:    
+                
+            else:
                 for i in range(pos, n):
-                    if nums[i] > remaining:
+                    if candidates[i] > remaining:
                         break
-                    dfs(remaining - nums[i], i, path + [nums[i]])
-                
+                    dfs(remaining - candidates[i], i, path + [candidates[i]])
+        
         dfs(target, 0, [])
-        
         return res
-    
-                
-        
+            
+            
