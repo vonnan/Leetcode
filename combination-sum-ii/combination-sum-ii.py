@@ -1,27 +1,25 @@
 class Solution:
     def combinationSum2(self, A: List[int], target: int) -> List[List[int]]:
+        n, res = len(A), set([])
         A.sort()
-        res, curr = [], []
-        
-        def dfs(pos, target):
+        curr = []
+        def dfs(target, pos):
             if target == 0:
-                res.append(curr.copy())
+                res.add(tuple(curr))
             
-            if target <= 0:
-                return
             prev = -1
-            for i in range(pos, len(A)):
-                a = A[i]
-                if a == prev:
+            for i, num in enumerate(A[pos:], pos):
+                if num == prev:
                     continue
-                curr.append(a)
-                dfs(i +1, target - a)
+                if num > target:
+                    break
+                curr.append(num)
+                dfs(target - num, i + 1)
                 curr.pop()
-                prev = a
+                prev = num
         
-        dfs(0, target)
+        dfs(target, 0)
         
         return res
-        
-        
-        
+                
+    
