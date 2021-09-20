@@ -1,27 +1,31 @@
-
+from sortedcontainers import SortedList
 class Solution:
     def minAbsDifference(self, nums: List[int], goal: int) -> int:
-        sets1, sets2 = set([0]), set([0])
-        res, n = abs(goal), len(nums)
+        set1, set2 = set([0]), set([0])
+        n = len(nums)
+        for i, num in enumerate(nums[:n//2]):
+            set1 |= {prev + num for prev in set1}
+            
+        for i, num in enumerate(nums[n//2:]):
+            set2 |= {prev + num for prev in set2}
         
-        for num in nums[:n//2]:
-            sets1 |= {num + prev for prev in sets1}
-        for num in nums[n//2:]:
-            sets2 |= {num + prev for prev in sets2}
-        
-        sets1, sets2 = sorted(sets1), sorted(sets2)
-        n1, n2 = len(sets1), len(sets2)
-        
+        lst1, lst2 = sorted(set1), sorted(set2)
+        n1, n2 = len(lst1), len(lst2)
+        res = inf
         l, r = 0, n2-1
         while l < n1 and r >=0:
-            res = min(res, abs(sets1[l] + sets2[r] - goal))
-            if res == 0:
+            temp = lst1[l] + lst2[r] 
+            if temp == goal:
                 return 0
-            if sets1[l] + sets2[r]> goal:
-                r -= 1
-            elif sets1[l] + sets2[r] < goal:
+            res = min(res, abs(temp - goal))
+            if temp < goal:
                 l += 1
+            else:
+                r -= 1
         return res
+        
+        
+            
             
         
         
