@@ -8,12 +8,10 @@ class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         def helper(rt1, rt2):
             if (not rt1) or (not rt2):
-                return (not rt1) and (not rt2) 
+                return (not rt1) and (not rt2)
             
-            if rt1.val != rt2.val:
-                return False
+            return rt1.val == rt2.val and helper(rt1.left, rt2.right) and helper(rt1.right, rt2.left)
+        
+        return helper(root.left, root.right)
             
-            else:
-                return helper(rt1.left, rt2.right) and helper(rt1.right, rt2.left)
-            
-        return helper(root, root)
+        
