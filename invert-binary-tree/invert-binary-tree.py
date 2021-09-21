@@ -9,13 +9,15 @@ class Solution:
         def dfs(node):
             if not node:
                 return
+            
             if node.left or node.right:
                 node.left, node.right = node.right, node.left
-                if node.left:
-                    dfs(node.left)
-                if node.right:
-                    dfs(node.right)
-        
+                
+            if node.left:
+                dfs(node.left)
+                
+            if node.right:
+                dfs(node.right)
+                
         dfs(root)
         return root
-                
