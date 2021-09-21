@@ -16,7 +16,7 @@ class Solution:
             right = dfs(node.right)
             
             self.res += abs(left) + abs(right)
-            print(node, left, right, self.res)
+            
             return node.val + left + right - 1
         
        
