@@ -1,13 +1,11 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        last, res = len(nums) - 1, 0
-        
+        n = len(nums)
+        last, res = n-1, 0
         while last > 0:
-            for i, num in enumerate(nums[: last + 1]):
-                if i + num >= last:
+            for i in range(last+1):
+                if i + nums[i] >= last:
                     last = i
                     break
             res += 1
-            
         return res
-                    
