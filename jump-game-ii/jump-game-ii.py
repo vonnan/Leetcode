@@ -1,10 +1,15 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
         n = len(nums)
-        last, res = n-1, 0
+        res = 0
+        last = n-1
+        reach =[i + num for i, num in enumerate(nums)]
+        
         while last > 0:
-            for i in range(last+1):
-                if i + nums[i] >= last:
+            flag = False
+            for i in range(last):
+                if reach[i] >= last:
+                    flag = True
                     last = i
                     break
             res += 1
