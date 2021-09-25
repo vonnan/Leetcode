@@ -1,32 +1,31 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        row, col = len(board), len(board[0])
-        seen = set()
-        sets = set([])
+        def dfs(idx , r, c):
+            
+            if idx == k:
+                self.status = True
+                
+            if self.status:
+                return
+            
+            if 0 <= r < row and 0 <= c <col and board[r][c] == word[idx]:
+                temp = board[r][c]
+                board[r][c] = "*"
+                for dr, dc in path:
+                    dfs(idx + 1, r + dr, c + dc)
+                board[r][c] = temp
+                
+            else:
+                return
+            
+        self.status = False
+        row, col, k = len(board), len(board[0]), len(word)
+        path = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        
         for r in range(row):
             for c in range(col):
-                if board[r][c] in set(word):
-                    sets.add((r,c))
-        
-        path = [(0,1), (0, -1), (1, 0), (-1,0)]
-        
-        def backtracking(r,c, ct):
-            if ct == len(word):
-                return True
-            for dr, dc in path:
-                nr, nc = r + dr, c + dc
-                if (nr, nc) not in sets:
-                    continue
-                if 0 <=  nr <row and 0 <= nc < col and (nr, nc) not in seen and board[nr][nc] ==word[ct]:
-                    seen.add((nr, nc))
-                    if backtracking(nr, nc, ct + 1):
-                        return True
-                    seen.remove((nr, nc))
-                    
-        for r in range(row):
-            for c in range(col):
-                seen.add((r, c))
-                if board[r][c] ==  word[0] and backtracking(r,c,1):
+                if self.status:
                     return True
-                seen.remove((r,c))
-        return False
+                dfs(0, r, c)
+        return self.status
+                
