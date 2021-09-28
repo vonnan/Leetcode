@@ -8,6 +8,7 @@ class Solution:
                 LIS.append(num)
             else:
                 LIS[idx] = num
+                
         return len(LIS)
                 
             
