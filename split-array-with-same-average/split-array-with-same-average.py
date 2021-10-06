@@ -1,30 +1,30 @@
-from collections import defaultdict
 class Solution:
     def splitArraySameAverage(self, nums: List[int]) -> bool:
-        n, tot = len(nums), sum(nums)
-        if not any(k * tot %n ==0 for k in range(1, (n+1)//2+1)) or n <=1:
+        n = len(nums)
+        tot, avg = sum(nums), sum(nums)/n
+        lst = [k for k in range(1, (n +1)//2 + 1) if tot * k %n == 0]
+
+        if not lst or n == 1:
             return False
-    
         
-        memo= defaultdict(set)
-        #total sum with the key of size
         
+        memo = defaultdict(set)
         memo[0] = {0}
         
         for num in nums:
             for size in range((n+1)//2, 0, -1):
+                target = tot * size 
                 for prev in memo[size -1]:
                     memo[size].add(prev + num)
-                    
-                    if (prev + num)* n == tot * size:
+                    if (prev + num)* n == target:
+                        print(num, size, avg, target/n)
                         return True
-                
         return False
-                
-                
+                    
         
-                
-                
             
         
-       
+        
+    
+        
+                   
