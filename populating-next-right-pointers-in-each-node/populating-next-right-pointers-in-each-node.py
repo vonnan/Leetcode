@@ -11,7 +11,7 @@ class Node:
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
         if not root:
-            return
+            return root
         
         q = deque([root])
         
@@ -21,12 +21,9 @@ class Solution:
                 node = q.popleft()
                 if i < m-1:
                     node.next = q[0]
-                
-                if node.left and node.right:
+                if node.left:
                     q.append(node.left)
+                if node.right:
                     q.append(node.right)
         
         return root
-                
-    
-    
