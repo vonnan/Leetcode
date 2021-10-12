@@ -4,7 +4,7 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         if not head or not head.next:
             return head
         
@@ -13,12 +13,12 @@ class Solution:
             if not tail:
                 return head
             tail = tail.next
-        
+            
         tail = self.reverseKGroup(tail, k)
+        
         for _ in range(k):
             next_ = head.next
             head.next = tail
             tail = head
             head = next_
-            
         return tail
