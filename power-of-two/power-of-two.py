@@ -1,5 +1,7 @@
 class Solution:
     def isPowerOfTwo(self, n: int) -> bool:
-        sets = set([2 ** i for i in range(31)])
+        if n < 1:
+            return False
         
+        sets = set(pow(2, i) for i in range(32))
         return n in sets
