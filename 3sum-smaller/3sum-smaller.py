@@ -12,10 +12,11 @@ class Solution:
             while j < k:
                 sum3 = num + nums[j] + nums[k]
                 if sum3 < target:
-                    res += k - j
+                    res += (k - j)
                     j += 1
                 else:
                     k -= 1
+                    
         return res
                     
                     
