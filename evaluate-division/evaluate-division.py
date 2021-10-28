@@ -1,16 +1,14 @@
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
         graph = defaultdict(dict)
-       
-        for (u,v), val in zip(equations, values):
-            graph[u][v] = val
-            graph[v][u] = 1/val
+        
+        for u, v in equations:
+            graph[u][v] = values.pop(0)
+            graph[v][u] = 1/graph[u][v]
             
-        def dfs(p, q, visited):
-            
+        def dfs(p,q, visited):
             if p not in graph or q not in graph:
                 return -1.0
-            
             if p == q:
                 return 1.0
             
@@ -20,16 +18,18 @@ class Solution:
             for v in graph[p]:
                 if v not in visited:
                     visited.add(v)
-                    temp = dfs(v, q, visited)
-                    if temp == -1.0:
+                    tmp = dfs(v, q, visited)
+                    if tmp == -1.0:
                         continue
                     else:
-                        return temp * graph[p][v]
+                        return tmp * graph[p][v]
             return -1.0
+        
         res = []
-        for p, q in queries:
-            res.append(dfs(p, q, set()))
+        for u,v in queries:
+            res.append(dfs(u, v, set([])))
         return res
+                
                     
                         
             
