@@ -1,6 +1,5 @@
 class Solution:
     def maxNumOfSubstrings(self, s: str) -> List[str]:
-        
         char_set = set(s)
          
         dic = {c: (s.rindex(c), s.index(c)) for c in char_set}
@@ -23,13 +22,3 @@ class Solution:
             curr = r
          
         return res
-                
-                
-            
-                
-            
-            
-            
-        
-            
-            
