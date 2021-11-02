@@ -1,21 +1,13 @@
-from collections import Counter
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        def converter(s):
-            res = [0]*26
-            for x in s:
-                idx = ord(x) - 97
-                res[idx] +=1
-            return tuple(res)
-        
+        n = len(strs)
         res = []
-        dic = {}
-        for s in strs:
-            t = converter(s)
-            if t not in dic:
-                res.append([s])
-                dic[t] = len(res)-1
-            else:
-                res[dic[t]].append(s)
-        return res
-        
+        dic = defaultdict(list)
+        for i, s in enumerate(strs):
+            x= [0] * 26
+            for c in s:
+                x[ord(c) - ord("a")] += 1
+            dic[tuple(x)].append(s)
+        return dic.values()
+                
+            
