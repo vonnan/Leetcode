@@ -1,14 +1,16 @@
 class Solution:
-    def minAvailableDuration(self, slots1: List[List[int]], slots2: List[List[int]], duration: int) -> List[int]:
-        slot =[ (s,e) for s,e in slots1 + slots2 if e-s >= duration]
-        
-        slot.sort()
-        
-        for i in range(1, len(slot)):
-            l1, r1 = slot[i-1]
-            l2, r2 = slot[i]
-            if r1 >= l2 + duration:
-                return [l2, l2 + duration]
-            
+    def minAvailableDuration(self, A: List[List[int]], B: List[List[int]], d: int) -> List[int]:
+        A = [(s, e) for s, e in A if e - s >= d]
+        B =  [(s, e) for s, e in B if e - s >= d]
+        C = sorted(A + B)
+        if not C:
+            return []
+        start, end = C[0]
+        for i in range(1, len(C)):
+            s, e = C[i]
+            if s > end - d:
+                start, end = s, e
+                continue
+            else:
+                return [s, s + d]
         return []
-            
