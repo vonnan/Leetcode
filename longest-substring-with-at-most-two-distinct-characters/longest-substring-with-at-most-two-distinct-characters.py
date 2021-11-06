@@ -1,26 +1,28 @@
+from collections import Counter
 class Solution:
     def lengthOfLongestSubstringTwoDistinct(self, s: str) -> int:
         counter = Counter()
-        ct = 0
+        left, res, count = 0, 0, 0
+        seen = set()
         
-        left, res = 0, 0
-        for right, c in enumerate(s):
-            if c not in counter:
-                ct += 1
-                
+        for right,ss in enumerate(s):
+            if ss not in seen:
+                count += 1
+                seen.add(ss)
             
-            while ct > 2:
+            counter[ss] += 1
+            
+            while count > 2:
                 if counter[s[left]] == 1:
-                    ct -= 1
-                    counter.pop(s[left])
-                else:
-                    counter[s[left]] -= 1
+                    count -= 1
+                    seen.remove(s[left])
+                counter[s[left]] -= 1
                 left += 1
                 
-                         
-            counter[c] += 1
-            
             res = max(res, right - left + 1)
-                
+            
         return res
             
+            
+        
+        
