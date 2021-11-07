@@ -5,33 +5,19 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def getLonelyNodes(self, root: TreeNode) -> List[int]:
+    def getLonelyNodes(self, root: Optional[TreeNode]) -> List[int]:
+        q = deque([root])
         res = []
-        if not root:
-            return []
         
-        def dfs(node):
-            nonlocal res
-            
-            if not node:
-                return False
-            
-            left = dfs(node.left)
-            right = dfs(node.right)
-            
-            if left and (not right):
-                res.append(node.left.val)
-                
-            elif right and (not left):
-                res.append(node.right.val)
-                
-            return True
-                
-         
-        dfs(root)
-        
+        while q:
+            node = q.popleft()
+            if node.left and node.right:
+                q.append(node.left)
+                q.append(node.right)
+            elif not node.left and not node.right:
+                continue
+            else:
+                nxt = node.left or node.right
+                res.append(nxt.val)
+                q.append(nxt)
         return res
-            
-        
-            
-        
