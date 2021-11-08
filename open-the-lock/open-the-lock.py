@@ -1,28 +1,30 @@
-from collections import deque
 class Solution:
     def openLock(self, deadends: List[str], target: str) -> int:
-        no_go_sets = set(deadends)
-        if "0000" in no_go_sets:
+        if "0000" in deadends or (target in deadends):
             return -1
-        if target == "0000":
-            return 0
         
-        step = 0
-        queue = deque(["0000"])
-        while queue:
-            n = len(queue)
-            for _ in range(n):
-                combo = queue.popleft()
-                if combo == target:
-                    return step + 1
-                for move in [-1,1]:
-                    for i in range(4):
-                        new = str((int(combo[i]) + move)%10)
-                        new_combo = combo[:i] + new + combo[i+1:]
-                        if new_combo == target:
-                            return step + 1
-                        if new_combo not in no_go_sets:
-                            no_go_sets.add(new_combo)
-                            queue.append(new_combo)
-            step += 1
-        return -1
+        nxt = {str(i):[ str((i + 1) % 10), str((i - 1) % 10)] for i in range(10)}
+        
+        q = deque([target])
+        
+        seen = set([target])
+        turn = 0
+        while q:
+            m = len(q)
+            for _ in range(m):
+                val = q.popleft()
+                if val == "0000":
+                    return turn
+                for i in range(4):
+                    for u in nxt[val[i]]:
+                        nv = val[:i] + u + val[i+1:]
+                        if (nv not in seen) and (nv not in deadends):
+                            seen.add(nv)
+                            q.append(nv)
+                            if nv == "0000":
+                                return turn + 1
+            turn += 1
+        return  -1
+            
+                    
+            
