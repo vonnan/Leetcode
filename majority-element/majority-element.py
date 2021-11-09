@@ -1,4 +1,4 @@
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         counter = Counter(nums)
-        return max(zip(counter.values(), counter.keys()))[1]
+        return max([(v, k) for k,v in counter.items()])[1]
