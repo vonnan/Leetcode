@@ -1,15 +1,12 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        presum = [0]
-        
         dic = defaultdict(int)
         dic[0] = 1
-        
-        res = 0
-        for i, num in enumerate(nums):
-            last = presum[-1] + num
-            presum.append(last)
-            if last - k in dic:
-                res += dic[last - k]
-            dic[last] += 1
+        presum, res = 0, 0
+        for num in nums:
+            presum += num
+            if presum - k in dic:
+                res += dic[presum - k]
+            dic[presum] += 1
         return res
+        
