@@ -3,6 +3,4 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        counter = Counter(nums)
-        nums[:] = [0]* counter[0] + [1] * counter[1] + [2] * counter[2]
-        
+        nums[:]= [0] * nums.count(0) + [1] * nums.count(1) + [2] * nums.count(2)
