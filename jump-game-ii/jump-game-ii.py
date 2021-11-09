@@ -1,16 +1,20 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        n = len(nums)
-        res = 0
-        last = n-1
-        reach =[i + num for i, num in enumerate(nums)]
+        q = deque([0])
+        seen = set([])
+        jump, n= 0, len(nums)
+        while q:
+            m = len(q)
+            for _ in range(m):
+                pos = q.popleft()
+                if pos >= n-1:
+                    return jump
+                for j in range(pos + 1, pos + nums[pos] + 1):
+                    if j >= n-1:
+                        return jump + 1
+                    if j not in seen:
+                        seen.add(j)
+                        q.append(j)
+            jump += 1
+        return jump
         
-        while last > 0:
-            flag = False
-            for i in range(last):
-                if reach[i] >= last:
-                    flag = True
-                    last = i
-                    break
-            res += 1
-        return res
