@@ -4,7 +4,8 @@ class MyHashMap:
         """
         Initialize your data structure here.
         """
-        self.dic = {}
+        self.dic = defaultdict(int)
+        
 
     def put(self, key: int, value: int) -> None:
         """
@@ -16,14 +17,17 @@ class MyHashMap:
         """
         Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
         """
-        return self.dic[key] if key in self.dic else -1
+        if key in self.dic:
+            return self.dic[key]
+        else:
+            return -1
 
     def remove(self, key: int) -> None:
         """
         Removes the mapping of the specified value key if this map contains a mapping for the key
         """
         if key in self.dic:
-            del self.dic[key]
+            self.dic.pop(key)
 
 
 # Your MyHashMap object will be instantiated and called as such:
