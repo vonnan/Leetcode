@@ -1,13 +1,32 @@
+from heapq import heappush
+from heapq import heappop
+
 class Solution:
     def maxSubarraySumCircular(self, nums: List[int]) -> int:
-        n = len(nums)
-        maxLst, minLst = [nums[0]], [nums[0]]
-        maxSum, Sum, minSum = nums[0], nums[0], nums[0]
-        for i, num in enumerate(nums[1:],1):
-            maxLst.append(max(maxLst[-1], 0) + num)
-            minLst.append(min(minLst[-1], 0) + num)
-            maxSum = max(maxSum, maxLst[-1])
-            minSum = min(minSum, minLst[-1])
-            Sum += num
-        print(maxLst, minLst)
-        return max(maxSum, Sum - minSum) if maxSum > 0 else maxSum
+        presum, n, tot = [0], len(nums), sum(nums)
+        suffsum = []
+        min_, max_, res = 0, -inf, -inf
+        dp_left, dp_right =[0] * n, [0] * n
+        for i, num in enumerate(nums):
+            nxt = presum[-1] + num
+            res = max(res, nxt - min_)
+            dp_left[i] = max_
+            suffsum.append(tot - presum[-1])
+            presum.append(presum[-1] + num)
+            min_ = min(min_, presum[-1])
+            max_ = max(max_, presum[-1])
+        max_ = -inf    
+        for i in range(n-1, -1, -1):
+            dp_right[i] = max_
+            max_ = max(max_, suffsum[i])
+        
+        for i in range(n):
+            res = max(res, dp_left[i] + dp_right[i])
+            
+        return res if res !=-inf else -1
+            
+            
+            
+        
+            
+        
