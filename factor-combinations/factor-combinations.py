@@ -1,17 +1,15 @@
 class Solution:
     def getFactors(self, n: int) -> List[List[int]]:
-        if n == 1:
-            return []
+        res = []
         
-        res = []    
-        def dfs(path = [], rest = 2, target = n):
-            if len(path) > 0:
-                res.append(path + [target])
-            while rest * rest <= target:
-                if target % rest ==0:
-                    dfs(path + [rest], rest, target//rest)
-                rest += 1
+        def helper(prev_factor, arr, n):
+            for i in range(prev_factor, int(n**0.5)+1):
+                if n % i ==0:
+                    res.append(arr +[i, n//i])
+                    helper(i, arr +[i], n//i)
         
-        dfs()
+        helper(2, [], n)
+        
         return res
+
             
