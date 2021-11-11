@@ -1,25 +1,28 @@
 class Solution:
     def getMaxLen(self, nums: List[int]) -> int:
-        lst = [[]]
-        for i, num in enumerate(nums):
-            if num >0:
-                lst[-1].append(1)
-            elif num <0:
-                lst[-1].append(-1)
-            elif lst[-1] !=[]:
-                lst.append([])
-        res = 0
-        print(lst)
-        for num in lst:
-            if not num:
-                continue
-            n = len(num)
-            if num.count(-1) % 2 == 0:
-                res = max(res, n)
+        s = ""
+        for num in nums:
+            if num == 0:
+                s += "0"
+            elif num > 0:
+                s += "+"
             else:
-                res = max(res, n - 1 - min(num.index(-1), num[::-1].index(-1)))
+                s += "-"
                 
+        
+        s = s.split("0")
+        res = 0
+        for c in s:
+            if c:
+                ct = c.count("-")
+                n = len(c)
+                if not ct % 2:
+                    res = max(res, n )
+                else:
+                    idx = c.index("-")
+                    ridx = c.rindex("-")
+                    x = max([idx, ridx, n - 1 - idx, n-1 -idx])
+                    res = max(x, res)
+                    
         return res
-            
                 
-            
