@@ -1,19 +1,19 @@
 class Solution:
-    def trap(self, A: List[int]) -> int:
-        left= [0]
-        for h in A:
+    def trap(self, height: List[int]) -> int:
+        left = [0]
+        for h in height:
             left.append(max(h, left[-1]))
         
         right = [0]
-        for h in A[::-1]:
-            right.append(max(h, right[-1]))
+        for h in height[::-1]:
+            right.append(max(h, right [-1]))
         
-        right = right[::-1]
-        res = 0
+        left, right = left[1:], right[1:][::-1]
         
-        for i, h in enumerate(A):
+        n, res = len(height), 0
+        for i, h in enumerate(height):
             bar = min(left[i], right[i])
-            if bar > h:
+            if h < bar:
                 res += bar - h
         return res
-        
+                
