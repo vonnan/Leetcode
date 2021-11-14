@@ -6,12 +6,11 @@
 
 class Solution:
     def detectCycle(self, head: ListNode) -> ListNode:
-        seen = set([head])
+        sets = set([])
         while head:
-            head = head.next
-            if head in seen:
+            if head not in sets:
+                sets.add(head)
+            else:
                 return head
-            seen.add(head)
-       
-        
-        
+            head = head.next
+        return None
