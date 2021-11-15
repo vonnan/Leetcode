@@ -1,18 +1,17 @@
-from heapq import merge
-from heapq import heappop
-
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        heap = (merge(nums1, nums2))
-        heap = list(heap)
-        n = len(heap)
-        if n %2:
-            return heap[n//2]
-        else:
-            return (heap[n//2 -1] + heap[n//2])/2
-        
-            
-       
-        
+        nums = []
+        while nums1 and nums2:
+            if nums1[0] <= nums2[0]:
+                nums.append(nums1.pop(0))
+            else:
+                nums.append(nums2.pop(0))
                 
-            
+        if nums1 or nums2:
+            nums.extend(nums1 or nums2)
+        
+        n = len(nums)
+        if n %2:
+            return nums[n//2]
+        else:
+            return (nums[n//2] + nums[n//2 - 1])/2
