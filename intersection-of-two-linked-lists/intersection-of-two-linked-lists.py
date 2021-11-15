@@ -9,18 +9,14 @@ class Solution:
         seen = set([headA])
         if headB in seen:
             return headB
-        seen.add(headB)
-        while headA or headB:
-            if headA:
-                headA = headA.next
-                if headA in seen:
-                    return headA
-                seen.add(headA)
-            if headB:
-                headB = headB.next
-                if headB in seen:
-                    return headB
-                seen.add(headB)
-                
         
-            
+        while headA:
+            headA = headA.next
+            seen.add(headA)
+        
+        while headB:
+            if headB in seen:
+                return headB
+            headB = headB.next
+        
+        
