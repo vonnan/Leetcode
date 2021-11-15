@@ -9,16 +9,13 @@ class Solution:
         dummy.next = head
         pre, curr = dummy, head
         while curr:
-            
             if curr.next and curr.next.val == curr.val:
                 while curr.next and curr.next.val == curr.val:
                     curr.next = curr.next.next
                 pre.next = curr.next
             else:
                 pre = pre.next
-            
             curr = curr.next
         
         return dummy.next
-        
-        
+                
