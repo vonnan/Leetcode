@@ -1,22 +1,22 @@
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
-        def isPalindrom(x):
-            return x == x[::-1]
-        
         res = []
+        n = len(s)
         
         def dfs(x, path):
             if not x:
                 if path:
-                    res.append(list(path))
-                return
+                    print(path)
+                    res.append(tuple(path))
             
-            for i in range(1, len(x) + 1):
-                prefix = x[:i]
-                if isPalindrom(prefix):
-                    path.append(prefix)
-                    dfs(x[i:], path)
-                    path.pop()
+            else:
+                for i in range(1, len(x) + 1):
+                    prefix = x[:i]
+                    
+                    if prefix == prefix[::-1]:
+                        path.append(prefix)
+                        dfs(x[i:], path)
+                        path.pop()
         
         dfs(s, [])
         return res
