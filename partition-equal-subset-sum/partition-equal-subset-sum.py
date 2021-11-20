@@ -1,25 +1,31 @@
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-        tot = sum(nums)
-        target = tot//2
-        nums.sort()
-        
-        if tot%2 or target < nums[-1]:
+        if sum(nums)%2:
             return False
         
-        target -= nums[-1]
+        target = sum(nums)//2
+        nums.sort()
         
-        if target ==0 or target in set(nums[:-1]):
+        if nums[-1] > target:
+            return False
+        target -= nums[-1]
+        if target == 0:
             return True
-        sets =set([0])
-        for num in nums[:-1]:
+        nums = nums[:-1]
+        
+        sets = set([0])
+        for num in nums:
+            if num == target:
+                return True
             if num > target:
                 return False
-            for prev in list(sets):
-                if prev + num not in sets:
-                    if num + prev == target:
+            for x in list(sets):
+                if num + x not in sets:
+                    if num + x == target:
                         return True
-                    sets.add(prev + num)
-            
+                    else: 
+                        sets.add(num + x)
+        
         return False
-            
+                
+        
