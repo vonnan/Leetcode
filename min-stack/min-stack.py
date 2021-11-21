@@ -8,7 +8,6 @@ class MinStack:
     def push(self, val: int) -> None:
         self.stack.append(val)
         insort(self.minstack, val)
-        
 
     def pop(self) -> None:
         x = self.stack.pop()
