@@ -1,20 +1,27 @@
 from collections import defaultdict
 class Solution:
-    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
-        memo = defaultdict(int)
-        memo[(0,0)] = 1
-        visited = set()
-        m, n = len(obstacleGrid), len(obstacleGrid[0])
-        for d in range(m+n-1):
-            for i in range(min(d+1, m)):
-                j = min(d - i, n-1)
-                if obstacleGrid[i][j] ==1:
-                    memo[(i,j)] = 0
-                elif obstacleGrid[i][j] ==0 and (i,j) not in visited:
-                    if j > 0:
-                        memo[(i, j)] += memo[(i, j-1)]
-                        
-                    if i > 0:
-                        memo[(i, j)] += memo[(i-1, j)]
-                visited.add((i, j))
-        return memo[(m-1, n-1)]
+    def uniquePathsWithObstacles(self, A: List[List[int]]) -> int:
+        if A[0][0] ==1:
+            return 0
+        
+        row, col = len(A), len(A[0])
+        
+        path = [(0,1), (1, 0)]
+        
+        dp =[[0] * col for _ in range(row)]
+        dp[0][0] = 1
+        for c in range(1, col):
+            dp[0][c] = dp[0][c-1] * (1- A[0][c])  
+        
+        for r in range(1, row):
+            dp[r][0] = dp[r-1][0] * (1-A[r][0])
+        
+        for r in range(1,row):
+            for c in range(1,col):
+                if A[r][c] == 1:
+                    dp[r][c] = 0
+                    continue
+                dp[r][c] = dp[r][c-1] + dp[r-1][c]
+                
+        
+        return dp[-1][-1]
