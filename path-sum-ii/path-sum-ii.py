@@ -9,10 +9,8 @@ class Solution:
         if not root:
             return []
         
-        if not root.right and not root.left and root.val == targetSum:
+        if not root.left and not root.right and root.val == targetSum:
             return [[root.val]]
-        
-        
         
         left = self.pathSum(root.left, targetSum - root.val)
         right = self.pathSum(root.right, targetSum - root.val)
