@@ -1,36 +1,18 @@
 class Solution:
-    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        dic = defaultdict(set)
-        for course, pre in prerequisites:
-            dic[pre].add(course)
+    def findOrder(self, n: int, A: List[List[int]]) -> List[int]:
+        graph = defaultdict(set)
+        degree = [0] * n
         
-        visited, tracker, stack = set(), set(), []
-        
-        self.cycle = False
-        
-        def dfs(node, visited, tracker, stack):
-            visited.add(node)
-            tracker.add(node)
+        for u, v in A:
+            degree[u] += 1
+            graph[v].add(u)
             
-            for course in dic[node]:
-                if course in tracker:
-                    self.cycle = True
-                    break
-                    
-                if course not in visited:
-                    dfs(course, visited, tracker, stack)
-                
-            tracker.remove(node)
-            stack.append(node)
-            
-        for course in range(numCourses):
-            if course not in visited:
-                dfs(course, visited, tracker, stack)
-                if self.cycle:
-                    return []
+        q = [v for v in range(n) if degree[v] == 0 ]
         
-        return stack[::-1]
-                
-                
-                    
+        for v in q:
+            for u in graph[v]:
+                degree[u] -= 1
+                if degree[u] == 0:
+                    q.append(u)
         
+        return q if len(q) == n else []
