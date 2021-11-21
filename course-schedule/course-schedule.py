@@ -1,26 +1,16 @@
-from collections import defaultdict
 class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        dic = defaultdict(set)
-        for course, pre in prerequisites:
-            dic[pre].add(course)
+    def canFinish(self, n: int, A: List[List[int]]) -> bool:
+        graph = defaultdict(set)
+        degree = [0] * n
+        for u, v in A:
+            graph[v].add(u)
+            degree[u] += 1
             
-        def cycle(node, tracker, visited):
-            visited[node] = True
-            tracker[node] = True
-            for course in dic[node]:
-                if course not in visited and cycle(course, tracker, visited):
-                    return True
-                elif course in tracker:
-                    return True
-            tracker.pop(node)
-            return False
-        
-        visited = {}
-        for course in range(numCourses):
-            tracker = {}
-            if cycle(course, tracker, visited):
-                return False
-        return True
-            
-                
+        q = [v for v in range(n) if degree[v] == 0]
+        for v in q:
+            for u in graph[v]:
+                degree[u] -= 1
+                if degree[u] ==0:
+                    q.append(u)
+        return True if len(q) == n else False
+                    
