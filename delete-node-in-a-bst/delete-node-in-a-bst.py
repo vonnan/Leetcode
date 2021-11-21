@@ -7,13 +7,13 @@
 class Solution:
     def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
         if not root:
-            return None
-        
-        if root.val > key:
-            root.left = self.deleteNode(root.left, key)
+            return root
             
-        elif root.val < key:
+        if key > root.val:
             root.right = self.deleteNode(root.right, key)
+                
+        elif key < root.val:
+            root.left = self.deleteNode(root.left, key)
             
         else:
             if not root.left or not root.right:
@@ -21,13 +21,9 @@ class Solution:
             
             curr = root.left
             while curr.right:
-                curr = curr.right
-            
+                curr= curr.right
             root.val = curr.val
             root.left = self.deleteNode(root.left, root.val)
-        
         return root
-            
-            
-        
-        
+                
+                
