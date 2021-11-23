@@ -1,15 +1,12 @@
 class Solution:
-    def findJudge(self, n: int, trust: List[List[int]]) -> int:
-        t = {i:0 for i in range(1, n + 1)}
-        trusted = {i:0 for i in range(1, n + 1)}
-        
-        for a, b in trust:
-            t[a] += 1
+    def findJudge(self, n: int, A: List[List[int]]) -> int:
+        trusted ={i:0 for i in range(1,n+1)}
+        trust ={i:0 for i in range(1,n+1)}
+        sets = set()
+        for a,b in A:
             trusted[b] += 1
-        
+            trust[a] += 1
         for i in range(1,n+1):
-            if t[i] == 0 and trusted[i] == n-1:
+            if trusted[i] == n-1 and trust[i] ==0:
                 return i
         return -1
-        
-        
