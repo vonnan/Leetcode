@@ -1,35 +1,32 @@
-from collections import Counter
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
         m, n = len(word1), len(word2)
-        memo = Counter()
         
-        def dp(w1, w2, i, j):
-            if (i, j) in memo:
-                return memo[(i,j)]
-            
-            elif i ==m and j == n:
+        memo = {}
+        
+        def dfs(w1, w2, r, c):
+            if (r,c) in memo:
+                return memo[(r,c)]
+            if r==m and c==n:
                 return 0
             
-            elif i == m:
-                return n-j
+            elif c==n:
+                return m - r
             
-            elif j == n:
-                return m - i
+            elif r == m:
+                return n - c
             
-            elif w1[i] == w2[j]:
-                ct = dp(w1, w2, i+1, j+1)
-                
-            else:
-                insert = dp(w1, w2, i, j+1)
-                delete = dp(w1, w2, i+1, j)
-                replace = dp(w1, w2, i+1, j+1)
-                ct = 1 + min(insert, delete, replace)
-            memo[(i, j)] = ct
-            return ct
-                
-        return dp(word1, word2, 0, 0)
-                
+            elif (r,c) not in memo:
+                if w1[r] == w2[c]:
+                    ct = dfs(w1,w2, r+1, c+1)
+                    
+                else:
+                    insert = dfs(w1,w2, r, c+ 1)
+                    delete = dfs(w1, w2, r+1, c)
+                    replace = dfs(w1,w2, r+1, c+ 1)
+                    ct = 1 + min(insert, delete, replace)
+                memo[(r,c)] =ct
+                return ct
+        return dfs(word1, word2, 0, 0)
+                    
             
-             
-                
