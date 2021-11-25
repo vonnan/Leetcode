@@ -5,13 +5,10 @@ class Solution:
     def frequencySort(self, s: str) -> str:
         counter = Counter(s)
         heap = []
-        
         for key, val in counter.items():
             heappush(heap, (-val, key))
-        
-        res = ""    
+        res = ""
         while heap:
-            val, key = heappop(heap)
-            res += (-val) * key
-        
+            nv, key = heappop(heap)
+            res += -nv * key
         return res
