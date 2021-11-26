@@ -1,21 +1,13 @@
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
-        nums =sorted([num for num in nums if num <= target])
-        if not nums:
-            return 0
+        dp =[0] * (target + 1)
+        nums.sort()
         
-        @lru_cache(None)
-        def dfs(remain):
-            if remain == 0:
-                return 1
-            
-            res = 0
+        dp[0] = 1
+        
+        for t in range(1, target + 1):
             for num in nums:
-                if num <=remain:
-                    res += dfs(remain - num)
-                else:
-                    break
-            return res
+                if num <= t:
+                    dp[t] += dp[t - num]
         
-        return dfs(target)
-                    
+        return dp[-1]
