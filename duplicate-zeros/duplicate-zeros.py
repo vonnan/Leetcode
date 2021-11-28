@@ -3,4 +3,4 @@ class Solution:
         """
         Do not return anything, modify arr in-place instead.
         """
-        arr[:] = [x for a in arr for x in ([a] if a else [0, 0])][:len(arr)]
+        arr[:] = [ x for a in arr for x in ([a] if a else [0, 0])][:len(arr)]
