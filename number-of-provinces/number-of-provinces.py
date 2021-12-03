@@ -1,5 +1,5 @@
 class Solution:
-    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+    def findCircleNum(self, A: List[List[int]]) -> int:
         UF = {}
         
         def find(x):
@@ -7,16 +7,15 @@ class Solution:
                 UF[x] = find(UF[x])
             return UF[x]
         
-        def union(x,y):
-            UF.setdefault(x, x)
-            UF.setdefault(y, y)
+        def union(x, y):
+            UF.setdefault(x,x)
+            UF.setdefault(y,y)
             UF[find(x)] = find(y)
-        
-        n = len(isConnected)
-        
+            
+        n = len(A)
         for r in range(n):
             for c in range(n):
-                if isConnected[r][c] == 1:
-                    union(r,c)
+                if A[r][c] == 1:
+                    union(r, c)
         
-        return len(set(find(i) for i in range(n)))
+        return len(set([find(i) for i in range(n)]))
