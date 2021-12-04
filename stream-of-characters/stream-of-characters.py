@@ -1,28 +1,25 @@
 class StreamChecker:
 
     def __init__(self, words: List[str]):
-        self.stack = []
-        self.dic = defaultdict(list)
+        self.dic = defaultdict(set)
+        self.s = ""
+        self.size = 0
         for word in words:
-            self.dic[word[-1]].append(word)
-    
+            self.dic[word[-1]].add(word)
+
     def query(self, letter: str) -> bool:
-        self.stack.append(letter)
-        if letter not in self.dic:
-            return False
-        else:
+        self.s += letter
+        self.size += 1
+        if letter in self.dic:
             for word in self.dic[letter]:
-                m = len(word)
-                if len(self.stack) < m:
+                d = len(word)
+                if d > self.size:
                     continue
                 else:
-                    
-                    if "".join(self.stack[-m:]) == word:
+                    if word == self.s[-d:]:
                         return True
-            return False
-            
-            
-        
+                
+        return False
 
 
 # Your StreamChecker object will be instantiated and called as such:
