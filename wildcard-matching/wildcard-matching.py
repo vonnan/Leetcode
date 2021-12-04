@@ -1,16 +1,25 @@
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
-        n, m = len(s), len(p)
-        if m - p.count("*") > n:
-            return False
-        dp = [True] + [False] * n
-        for c in range(m):
-            if p[c] == "*":
-                for r in range(n):
-                    dp[r+1] = dp[r] | dp[r+1]
-            else:
-                for r in range(n-1, -1, -1):
-                    dp[r+1] = dp[r] and (s[r] == p[c] or p[c] == "?")
-                dp[0] = False
+        while "**" in p:
+            p = p.replace("**", "*")
+        
+        dp = {}
+        
+        def helper(s, p):
+            if (s,p) not in dp:
+                
+                if s== p or p == "*":
+                    dp[(s,p)] = True
+                elif s == "" or p == "":
+                    dp[(s,p)] = False
+                elif s[0] == p[0] or p[0] == "?":
+                    dp[(s,p)] = helper(s[1:], p[1:])
+                elif p[0] == "*":
+                    dp[(s,p)] = helper(s, p[1:]) or helper(s[1:], p)
+                else:
+                    dp[(s,p)] = False
             
-        return dp[-1]
+            return dp[(s,p)]
+        
+        return helper(s, p)
+                
