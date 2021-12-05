@@ -1,23 +1,15 @@
 class Solution:
     def decodeString(self, s: str) -> str:
-        stack, num, curr_str = [], "", ""
-        
+        stack, num, strs = [], "", ""
         for c in s:
             if c.isdigit():
                 num += c
-                
-            
             elif c.isalpha():
-                curr_str += c
-                
+                strs += c
             elif c == "[":
-                stack.append((num, curr_str))
-                num, curr_str = "", ""
-            
-            elif c == "]":
+                stack.append((num, strs))
+                num, strs = "", ""
+            else:
                 pre_num, pre_str = stack.pop()
-                curr_str = pre_str + int(pre_num) * curr_str
-              
-        return curr_str
-                
-                
+                strs = pre_str + int(pre_num) * strs
+        return strs
