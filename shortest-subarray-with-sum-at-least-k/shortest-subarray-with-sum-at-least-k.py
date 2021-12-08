@@ -1,20 +1,19 @@
-from heapq import heappop
-from heapq import heappush
-
 class Solution:
     def shortestSubarray(self, nums: List[int], k: int) -> int:
-        heap = [(0, -1)]
-        presum, res  = 0, inf
+        presum = [0]
+        stack = []
+        res = inf
         
-        for i, num in enumerate(nums):
-            presum += num
-            target = presum - k
+        for num in nums:
+            presum.append(num + presum[-1])
             
-            while heap and heap[0][0] <= target:
-                psum, idx = heappop(heap)
-                res = min(res, i - idx)
+        for i, p in enumerate(presum):
+            while stack and presum[stack[-1]] >= p:
+                stack.pop()
+                
+            while stack and p - presum[stack[0]] >= k:
+                res = min(res, i - stack.pop(0))
             
-            heappush(heap, (presum, i))
+            stack.append(i)
         
         return res if res != inf else -1
-        
