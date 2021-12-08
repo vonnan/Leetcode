@@ -8,7 +8,6 @@ class Solution:
     def getLonelyNodes(self, root: Optional[TreeNode]) -> List[int]:
         q = deque([root])
         res = []
-        
         while q:
             node = q.popleft()
             if node.left and node.right:
@@ -18,6 +17,6 @@ class Solution:
                 continue
             else:
                 nxt = node.left or node.right
-                res.append(nxt.val)
                 q.append(nxt)
+                res.append(nxt.val)
         return res
