@@ -6,12 +6,13 @@ class Solution:
         
         for r in range(row):
             for c in range(col):
-                dp[r][c] += grid[r][c]
-                if r and c:
-                    dp[r][c] +=  min(dp[r-1][c], dp[r][c-1])
-                elif r ==0 and c:
-                    dp[0][c] += dp[0][c-1]
-                elif c ==0 and r:
-                    dp[r][0] += dp[r-1][0]
-        
+                if r ==0 and c == 0:
+                    dp[r][c] = grid[r][c]
+                elif r == 0:
+                    dp[r][c] = dp[r][c-1] + grid[r][c]
+                elif c == 0:
+                    dp[r][c] = dp[r-1][c] + grid[r][c]
+                else:
+                    dp[r][c] = min(dp[r-1][c], dp[r][c-1]) + grid[r][c]
+                    
         return dp[-1][-1]
