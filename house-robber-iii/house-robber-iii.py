@@ -13,5 +13,6 @@ class Solution:
             left = dfs(node.left)
             right = dfs(node.right)
             
-            return left[1] + right[1], max(left[1] + right[1], node.val + left[0] + right [0])
+            return left[1] + right[1], max(left[1] + right[1], node.val + left[0] + right[0])
+        
         return dfs(root)[1]
