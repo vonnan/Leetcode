@@ -1,6 +1,16 @@
 class Solution:
-    def canReach(self, A: List[int], start: int) -> bool:
-        if 0 <= start < len(A) and A[start] >= 0:
-            A[start] = - A[start]
-            return A[start] == 0 or self.canReach(A, start + A[start]) or self.canReach(A, start - A[start])
+    def canReach(self, arr: List[int], start: int) -> bool:
+        visited = set([start])
+        q = deque([start])
+        n = len(arr)
+        while q:
+            pos = q.popleft()
+            val = arr[pos]
+            if val == 0:
+                return True
+            lst = [pos - val, pos + val]
+            for x in lst:
+                if 0 <= x < n and x not in visited:
+                    visited.add(x)
+                    q.append(x)
         return False
