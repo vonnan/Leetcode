@@ -1,26 +1,22 @@
 from bisect import bisect_left
-
 class Solution:
     def shortestDistanceColor(self, colors: List[int], queries: List[List[int]]) -> List[int]:
         dp = [[], [], []]
         for i, c in enumerate(colors):
             dp[c-1].append(i)
-            
         res = []
-        for idx, c in queries:
-            c -= 1
-            if not dp[c]:
+        for i, c in queries:
+            lst = dp[c-1]
+            if not lst:
                 res.append(-1)
                 continue
-            index = bisect_left(dp[c], idx)
-            if index == len(dp[c]):
-                res.append(idx - dp[c][-1])
-            elif index == 0:
-                res.append(dp[c][0] - idx)
-            else:
-                res.append(min(dp[c][index] - idx, idx - dp[c][index -1]))
-        
-        return res
-                
+            idx = bisect_left(lst, i)
             
+            if idx == 0:
+                res.append(lst[0] - i)
+            elif idx == len(lst):
+                res.append(i- lst[-1])
+            else:
+                res.append(min(lst[idx] -i, i - lst[idx-1]))
+        return res
         
