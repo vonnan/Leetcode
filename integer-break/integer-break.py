@@ -1,15 +1,18 @@
 class Solution:
     def integerBreak(self, n: int) -> int:
+        if n==2:
+            return 1
+        if n ==3:
+            return 2
         res = n//2 * (n - n//2)
-        if n <= 3:
-            return res
+        m = n//3
         
-        q,r = divmod(n, 3)
-        if r==0:
-            return max(res, 3** q)
+        if n % 3 == 0:
+            res = max(res, 3 ** m)
+        elif n% 3== 1:
+            res = max(res, 3 ** (m-1) * 4)
+        else:
+            res = max(res, 3 ** m * 2)
         
-        elif r ==1:
-            return max(res, 3 **(q-1) * 4)
+        return res
         
-        elif r == 2:
-            return max(res, 3 ** q * 2)
