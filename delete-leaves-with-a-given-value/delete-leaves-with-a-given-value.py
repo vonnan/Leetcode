@@ -10,6 +10,4 @@ class Solution:
             root.left = self.removeLeafNodes(root.left, target)
         if root.right:
             root.right = self.removeLeafNodes(root.right, target)
-            
-        return None if root.left == root.right== None and root.val == target else root
-            
+        return None if not root.left and not root.right and root.val == target else root
