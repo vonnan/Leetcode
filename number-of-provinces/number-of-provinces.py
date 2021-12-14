@@ -8,14 +8,15 @@ class Solution:
             return UF[x]
         
         def union(x, y):
-            UF.setdefault(x,x)
-            UF.setdefault(y,y)
+            UF.setdefault(x, x)
+            UF.setdefault(y, y)
             UF[find(x)] = find(y)
             
         n = len(A)
-        for r in range(n):
-            for c in range(n):
-                if A[r][c] == 1:
-                    union(r, c)
         
-        return len(set([find(i) for i in range(n)]))
+        for r in range(n):
+            for c in range(r, n):
+                if A[r][c]:
+                    union(r, c)
+                
+        return len(set(find(i) for i in range(n)))
