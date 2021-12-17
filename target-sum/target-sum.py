@@ -1,4 +1,3 @@
-from collections import Counter
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
         counter = Counter({0:1})
@@ -8,5 +7,6 @@ class Solution:
                 step[key + num] += counter[key]
                 step[key - num] += counter[key]
             counter = step
-        return counter[target]
                 
+                
+        return counter[target]
