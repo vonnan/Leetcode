@@ -3,5 +3,6 @@ class Solution:
         if n < 1:
             return False
         
-        sets = set(pow(2, i) for i in range(32))
+        sets = set([2 ** i for i in range(32)])
+        
         return n in sets
