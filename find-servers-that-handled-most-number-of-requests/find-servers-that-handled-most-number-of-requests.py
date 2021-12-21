@@ -1,39 +1,38 @@
-from bisect import insort
 from bisect import bisect_left
+from bisect import insort
+from heapq import heappush
+from heapq import heappop
+
 class Solution:
     def busiestServers(self, k: int, arrival: List[int], load: List[int]) -> List[int]:
-        available = [i for i in range(k)]
-        heap_end_time = []
-        busy_servers = [0]* k
+        ready = list(range(k))
+        busy =[0] * k
         busiest = 0
+        heap = []
         
-        for i, a in enumerate(arrival):
-            while heap_end_time and heap_end_time[0][0] <= a:
-                _, curr_server = heappop(heap_end_time)
-                insort(available, curr_server)
-                 
-            if not available:
+        for i, t in enumerate(arrival):
+            while heap and heap[0][0] <= t:
+                _, server = heappop(heap)
+                insort(ready, server)
+            
+            if not ready:
                 continue
+                
+            idx = bisect_left(ready, i%k) %(len(ready))
             
-            curr_idx = bisect_left(available, i% k) % (len(available))
+            server = ready[idx]
             
-            curr_server = available[curr_idx]
+            busy[server] += 1
             
-            busy_servers[curr_server] += 1
-            busiest = max(busiest, busy_servers[curr_server])
+            busiest = max(busiest, busy[server])
+            heappush(heap, (t + load[i], server))
+            ready.pop(idx)
             
-            available.pop(curr_idx)
             
-            heappush(heap_end_time, (a+load[i], curr_server))
-            
+        res = []
         
-        res = []    
-        for i, b in enumerate(busy_servers):
+        for i, b in enumerate(busy):
             if b == busiest:
                 res.append(i)
+        
         return res
-            
-        
-                
-                
-        
