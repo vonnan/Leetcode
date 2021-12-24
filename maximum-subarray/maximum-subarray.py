@@ -4,9 +4,8 @@ class Solution:
         presum = [0]
         res = -inf
         for num in nums:
-            nxt = num + presum[-1]
-            res = max(res, nxt - min_)
+            nxt = presum[-1] + num
             presum.append(nxt)
+            res = max(res, nxt - min_)
             min_ = min(min_, nxt)
         return res
-            
