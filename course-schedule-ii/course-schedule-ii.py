@@ -7,7 +7,7 @@ class Solution:
             degree[u] += 1
             graph[v].add(u)
             
-        q = [v for v in range(n) if degree[v] == 0 ]
+        q = [i for i in range(n) if degree[i] == 0]
         
         for v in q:
             for u in graph[v]:
@@ -15,4 +15,4 @@ class Solution:
                 if degree[u] == 0:
                     q.append(u)
         
-        return q if len(q) == n else []
+        return q if len(q)== n else []
