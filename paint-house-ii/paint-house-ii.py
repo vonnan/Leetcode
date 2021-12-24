@@ -1,14 +1,12 @@
-from heapq import heappush
-from heapq import heappop
 class Solution:
     def minCostII(self, costs: List[List[int]]) -> int:
         row, col = len(costs), len(costs[0])
-        dp = [[0] * col for _ in range(row)]
-        dp[0] = costs[0]
-        for r , rows in enumerate(costs[1:], 1):
-            for c in range(col):
-                dp[r][c] = min(dp[r-1][:c] + dp[r-1][c+1:]) + costs[r][c]
-        return min(dp[-1])        
-                
-                
         
+        dp = costs[0]
+        
+        for cost in costs[1:]:
+            
+            dp = [cost[c] + min(dp[:c] + dp[c+1:]) for c in range(col)]
+            
+        return min(dp)
+                
