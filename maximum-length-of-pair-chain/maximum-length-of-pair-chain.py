@@ -1,19 +1,23 @@
+from bisect import bisect_left
 class Solution:
     def findLongestChain(self, pairs: List[List[int]]) -> int:
         pairs.sort()
-        n = len(pairs)
-        if n ==1:
-            return 1
-        print(pairs)
-        dp = [1] * n
         end = pairs[0][1]
-        for i in range(1, n):
-            s,e = pairs[i]
+        LIS = [end]
+        
+        for s,e in pairs[1:]:
             if s > end:
-                dp[i] = dp[i-1] + 1
+                
                 end = e
+                LIS.append(end)
+                
+            elif e >= end:
+                continue
             else:
-                dp[i] = dp[i-1]
-                end = min(end, e)
-        return dp[-1]
-            
+                if len(LIS) == 1 or (len(LIS) > 1 and s > LIS[-2]):
+                    end = min(LIS.pop(), e)
+                    LIS.append(end)
+        return len(LIS)
+                
+                
+        
