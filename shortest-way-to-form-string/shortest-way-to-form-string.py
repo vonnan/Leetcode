@@ -1,13 +1,16 @@
 class Solution:
     def shortestWay(self, source: str, target: str) -> int:
-        ct, start = 1, 0
+        start, res = 0, 1
+        
         for c in target:
-            start = source.find(c, start)
-            if start == -1:
+            if c not in source:
+                return -1
+            if c in source[start:]:
+                start += source[start:].find(c)
+            else:
                 start = source.find(c)
-                ct += 1
-                if start == -1:
-                    return -1
-            #print(start, ct)
+                res += 1
             start += 1
-        return ct
+        return res
+            
+                
