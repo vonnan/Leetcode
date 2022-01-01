@@ -16,11 +16,12 @@ class Solution:
         seen[node] = Node(node.val, [])
         
         while q:
-            x = q.popleft()
-            for nei in x.neighbors:
+            nd = q.popleft()
+            
+            for nei in nd.neighbors:
                 if nei not in seen:
                     seen[nei] = Node(nei.val, [])
                     q.append(nei)
-                seen[x].neighbors.append(seen[nei])
+                seen[nd].neighbors.append(seen[nei])
+        
         return seen[node]
-            
