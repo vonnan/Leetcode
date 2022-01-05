@@ -1,33 +1,29 @@
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
         nei = defaultdict(set)
-        degree = {c: 0 for word in words for c in word}
+        indegree = {c:0 for word in words for c in word}
+        
         for first, second in zip(words, words[1:]):
             n1, n2 = len(first), len(second)
-            if n2 < n1 and second == first[:n2]:
+            if n1 > n2 and first[:n2] == second:
                 return ""
-            for a,b in zip(first, second):
-                if a != b:
+            for a, b in zip(first, second):
+                if a !=b:
                     if b not in nei[a]:
                         nei[a].add(b)
-                        degree[b] += 1
+                        indegree[b] += 1
                     break
-        
+                    
         res = ""
-        q = deque([c for c in degree if degree[c] == 0])
+        q = deque([c for c, val in indegree.items() if val ==0])
         
         while q:
             c = q.popleft()
             res += c
-            for d in nei[c]:
-                degree[d] -= 1
-                if degree[d] == 0:
-                    q.append(d)
-                    
-        if len(res) == len(degree):
-            return res
-        else:
-            return ""
+            for a in nei[c]:
+                indegree[a] -= 1
+                if indegree[a] == 0:
+                    q.append(a)
+        
+        return res if len(res) == len(indegree) else ""
             
-            
-                
