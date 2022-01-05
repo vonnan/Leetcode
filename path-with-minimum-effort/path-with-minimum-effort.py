@@ -1,42 +1,26 @@
-from heapq import heappush
-from heapq import heappop
-from collections import defaultdict
-
 class Solution:
-    def minimumEffortPath(self, heights: List[List[int]]) -> int:
-        row, col = len(heights), len(heights[0])
-        dist =[[inf] * col for r in range(row)]
-        dist[0][0] = 0
-        visited = set()
-        heap = [(0,0,0)]
+    def minimumEffortPath(self, A: List[List[int]]) -> int:
+        row, col = len(A), len(A[0])
+        path = [(0,1), (0, -1), (1, 0), (-1, 0)]
+        
+        seen = set([])
+        
+        heap = [(0, 0, 0)]
         
         while heap:
-            effort, r,c = heappop(heap)
-            
-            if (r,c) in visited:
+            val, r,c = heappop(heap)
+            #print(val, r, c)
+            if (r,c) in seen:
                 continue
                 
-            visited.add((r,c))
-            
-            for dr, dc in [(-1,0), (1, 0), (0, -1), (0, 1)]:
+            if r == row-1 and c == col - 1:
+                return val
+            seen.add((r, c))
+            a = A[r][c]
+            for dr, dc in path:
                 nr, nc = r + dr, c + dc
-                if nr in range(row) and nc in range(col):
-                    if (nr, nc) in visited:
-                        continue
-                    
-                    eft = max(abs(heights[nr][nc] - heights[r][c]), effort)
-                    if eft < dist[nr][nc]:
-                        dist[nr][nc] = eft
-                        heappush(heap, (eft, nr, nc))
-                    
-        return dist[-1][-1]
-                    
-            
-
+                if 0 <= nr < row and 0 <= nc < col and (nr, nc) not in seen:
+                    tmp = max(val, abs(A[nr][nc] - a))
+                    heappush(heap, (tmp, nr, nc))
         
         
-                    
-                
-                
-                
-            
