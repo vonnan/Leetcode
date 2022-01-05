@@ -23,7 +23,7 @@ class Solution:
             res += c
             
             for a in nei[c]:
-                print(indegree[a], indegree[a] -1)
+                
                 indegree[a] -= 1
                 
                 if indegree[a] == 0:
