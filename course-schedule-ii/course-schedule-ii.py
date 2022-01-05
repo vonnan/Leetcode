@@ -1,18 +1,19 @@
 class Solution:
     def findOrder(self, n: int, A: List[List[int]]) -> List[int]:
+        indegree = {i: 0 for i in range(n)}
         graph = defaultdict(set)
-        degree = [0] * n
-        
         for u, v in A:
-            degree[u] += 1
+            indegree[u] += 1
             graph[v].add(u)
-            
-        q = [i for i in range(n) if degree[i] == 0]
+        
+        q = [i for i, val in indegree.items() if val == 0 ]
         
         for v in q:
             for u in graph[v]:
-                degree[u] -= 1
-                if degree[u] == 0:
+                indegree[u] -= 1
+                if indegree[u] == 0:
                     q.append(u)
         
-        return q if len(q)== n else []
+        return q if len(q) == n else []
+        
+        
