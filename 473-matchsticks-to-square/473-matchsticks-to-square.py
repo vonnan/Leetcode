@@ -4,13 +4,13 @@ class Solution(object):
             return False
         
         tot = sum(nums)
-        if tot % 4:
-            return False
-        
         nums.sort(reverse = 1)
         
         target, n = tot//4, len(nums)
         
+        if tot % 4 or nums[0] > target:
+            return False
+         
         def helper(mask, sides, t):
             if sides == 0 and mask == 0:
                 return True
