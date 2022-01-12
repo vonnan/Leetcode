@@ -16,7 +16,7 @@ class Solution(object):
                 return True
             
             for i in range(n):
-                if mask & (1 << i) != 0:
+                if mask & (1 << i):
                     if nums[i] > t:
                         break
                     elif nums[i] == t:
