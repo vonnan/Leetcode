@@ -17,15 +17,17 @@ class Solution(object):
             
             for i in range(n):
                 if mask & (1 << i):
+                 
                     if nums[i] > t:
-                        print(i, t, nums[i])
+                        #print(i, t, nums[i])
                         break
+                    
                     elif nums[i] == t:
-                        print(i, t, nums[i], mask ^ (1 <<i), sides - 1, target)
+                        #print(i, t, nums[i], mask ^ (1 <<i), sides - 1, target)
                         if helper(mask ^ (1 <<i), sides - 1, target):
                             return True
-                    else:
-                        print(i, t, nums[i], mask ^ (1 <<i), sides - 1, target)
+                    elif nums[i] < t:
+                        #print(i, t, nums[i], mask ^ (1 <<i), sides - 1, target)
                         if helper(mask ^ (1 <<i), sides, t - nums[i]):
                             return True
             return False
