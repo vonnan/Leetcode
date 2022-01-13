@@ -1,32 +1,32 @@
 class Solution:
     def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
         n, tot = len(nums), sum(nums)
-        target = tot // k
-        
         nums.sort(reverse = 1)
         
-        if tot % k:
+        if n < k or tot % k:
             return False
         
-        target = [ tot//k] * k
+        target = tot//k
         
-        def dfs(pos):
-            if pos == n:
+        def helper(mask, sides, t):
+            if sides == 0 and mask == 0:
                 return True
             
-            for i in range(k):
-                if target[i] >= nums[pos]:
-                    target[i] -= nums[pos]
+            for i in range(n):
+                if mask & (1 << i):
+                 
+                    if nums[i] > t:
+                        #print(i, t, nums[i])
+                        break
                     
-                    if dfs(pos + 1):
-                        return True
-                    target[i] += nums[pos]
-                    
+                    elif nums[i] == t:
+                        #print(i, t, nums[i], mask ^ (1 <<i), sides - 1, target)
+                        if helper(mask ^ (1 <<i), sides - 1, target):
+                            return True
+                    elif nums[i] < t:
+                        #print(i, t, nums[i], mask ^ (1 <<i), sides - 1, target)
+                        if helper(mask ^ (1 <<i), sides, t - nums[i]):
+                            return True
             return False
         
-        return dfs(0)
-            
-            
-        
-        
-        
+        return helper((1<<n)-1, k, target)
