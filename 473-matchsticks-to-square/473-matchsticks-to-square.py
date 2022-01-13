@@ -1,25 +1,36 @@
 class Solution(object):
     def makesquare(self, nums):
-        
-        target, r = divmod(sum(nums), 4)
-        nums.sort(reverse = 1)
-        n = len(nums)
-        if r or nums[0] > target:
+        if not nums:
             return False
-       
         
-        @lru_cache(None)
-        def dfs(mask):
-            if mask == 0: return 0
+        tot = sum(nums)
+        nums.sort(reverse = 1)
+        print(nums)
+        target, n = tot//4, len(nums)
+        
+        if tot % 4 or nums[0] > target:
+            return False
+        
+        @lru_cache(None) 
+        def helper(mask, sides, t):
+            if sides == 0 and mask == 0:
+                return True
             
             for i in range(n):
                 if mask & (1 << i):
-                    nxt = dfs(mask ^ ( 1 << i))
-                    if nxt >= 0 and (nxt + nums[i] <= target):
-                        return (nxt + nums[i]) % target
-                  
-            return -1
+                    if nums[i] > t:
+                        #print(i, t, nums[i])
+                        break
+                    elif nums[i] == t:
+                        #print(i, t, nums[i], mask ^ (1 <<i), sides - 1, target)
+                        if helper(mask ^ (1 <<i), sides - 1, target):
+                            return True
+                    else:
+                        #print(i, t, nums[i], mask ^ (1 <<i), sides - 1, target)
+                        if helper(mask ^ (1 <<i), sides, t - nums[i]):
+                            return True
+            return False
         
-        return dfs((1<<n)-1) == 0
+        return helper((1<<n)-1, 4, target)
                         
     
