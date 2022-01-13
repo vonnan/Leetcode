@@ -1,26 +1,25 @@
-class Solution:
-    def makesquare(self, nums: List[int]) -> bool:
-        n, tot = len(nums), sum(nums)
+class Solution(object):
+    def makesquare(self, nums):
+        
+        target, r = divmod(sum(nums), 4)
         nums.sort(reverse = 1)
-        
-        target = tot//4
-        
-        if tot % 4 or nums[0] > target or n < 4:
+        n = len(nums)
+        if r or nums[0] > target:
             return False
+       
         
-        t = [target] * 4
-        
-        def dfs(pos):
-            if pos == n:
-                return True
+        @lru_cache(None)
+        def dfs(mask):
+            if mask == 0: return 0
             
-            for i in range(4):
-                if t[i] >= nums[pos]:
-                    t[i] -= nums[pos] 
-                    if dfs(pos + 1):
-                        return True
-                    t[i] += nums[pos]
-            return False
+            for i in range(n):
+                if mask & (1 << i):
+                    nxt = dfs(mask ^ ( 1 << i))
+                    if nxt >= 0 and (nxt + nums[i] <= target):
+                        return (nxt + nums[i]) % target
+                  
+            return -1
         
-        return dfs(0)
-                    
+        return dfs((1<<n)-1) == 0
+                        
+    
