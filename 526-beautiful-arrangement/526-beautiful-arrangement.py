@@ -9,7 +9,7 @@ class Solution:
             res = 0
             
             for i in range(1, n+1):
-                if (not mask &(1 <<i)) and (pos % i == 0 or (i % pos ==0)):
+                if not (mask &(1 <<i)) and (pos % i == 0 or (i % pos ==0)):
                     #print(bin(mask)[2:], i, res)
                     res += dfs(mask ^ ( 1 << i), pos - 1)
             
