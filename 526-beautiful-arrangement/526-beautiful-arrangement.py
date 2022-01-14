@@ -8,12 +8,13 @@ class Solution:
             
             res = 0
             
-            for i in range(1, n+1):
-                if not (mask &(1 <<i)) and (pos % i == 0 or (i % pos ==0)):
+            for i in range(n):
+                j = i + 1
+                if  (mask & 1<<i) and (pos % j == 0 or (j % pos ==0)):
                     #print(bin(mask)[2:], i, res)
                     res += dfs(mask ^ ( 1 << i), pos - 1)
             
             return res
         
-        return dfs(0, n)
+        return dfs((1 <<n) - 1, n)
  
