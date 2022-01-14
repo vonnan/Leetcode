@@ -1,15 +1,18 @@
 class Solution:
     def countArrangement(self, n: int) -> int:
-        nums = list(range(1, n + 1))
-        self.res = 0
         
-        def helper(nums, pos):
-            if not nums:
-                self.res += 1
-            else:
-                for i, num in enumerate(nums):
-                    if num % pos == 0 or (pos % num == 0):
-                        helper(nums[:i] + nums[i+1:], pos + 1)
+        @lru_cache(None)
+        def dfs(mask, pos):
+            if pos == 0:
+                return 1
+            
+            res = 0
+            
+            for i in range(1, n+1):
+                if not mask &(1 <<i) and (pos % i == 0 or (i % pos ==0)):
+                    res += dfs(mask ^ ( 1 << i), pos - 1)
+            
+            return res
         
-        helper(nums, 1)
-        return self.res
+        return dfs(0, n)
+ 
