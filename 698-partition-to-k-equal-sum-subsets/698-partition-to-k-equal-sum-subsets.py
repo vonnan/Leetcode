@@ -9,15 +9,25 @@ class Solution:
         target = tot//k
         
         @lru_cache(None)
-        def dfs(mask):
-            if mask == 0:
-                return 0
+        def helper(mask, sides, t):
+            if sides == 0 and mask == 0:
+                return True
             
             for i in range(n):
-                if mask & (1<< i):
-                    nxt = dfs(mask ^ (1 << i))
-                    if nxt >= 0 and (nxt + nums[i] <= target):
-                        return (nxt + nums[i]) % target
-            return -1
+                if mask & (1 << i):
+                 
+                    if nums[i] > t:
+                        #print(i, t, nums[i])
+                        break
+                    
+                    elif nums[i] == t:
+                        #print(i, t, nums[i], mask ^ (1 <<i), sides - 1, target)
+                        if helper(mask ^ (1 <<i), sides - 1, target):
+                            return True
+                    elif nums[i] < t:
+                        #print(i, t, nums[i], mask ^ (1 <<i), sides - 1, target)
+                        if helper(mask ^ (1 <<i), sides, t - nums[i]):
+                            return True
+            return False
         
-        return dfs((1<<n)-1) == 0
+        return helper((1<<n)-1, k, target)
