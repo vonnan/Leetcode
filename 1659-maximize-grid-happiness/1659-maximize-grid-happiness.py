@@ -5,7 +5,7 @@ class Solution:
         
         penalty = [[0, 0, 0], [0, 2 * LI, LI + LE], [0, LI + LE, 2 * LE]]
         
-        
+        #print((2,)+ tuple(range(5))[:-1])
         @lru_cache(None)
         def dp(index, row, I, E):
             if index == -1:
