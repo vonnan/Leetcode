@@ -9,16 +9,20 @@ class Solution:
                 i += 1
             
             for j in range(i+1, len(x)):
-                if x[j] == s2[i] and x[j] != s2[j]:
+                if x[j] == s2[i]:
                     yield x[:i] + x[j] + x[i+1:j] + x[i] + x[j+1:]
                     
-        q, seen = deque([(s1, 0)]), set([A])
+        q, seen, res = deque([s1]), set([A]), 0
         
         while q:
-            x, d = q.popleft()
-            if x== s2:
-                return d
-            for y in nei(x):
-                seen.add(y)
-                q.append((y, d + 1))
+            m = len(q)
+            for _ in range(m):
+                x = q.popleft()
+                for y in nei(x):
+                    if y == s2:
+                        return res + 1
+                    if y not in seen:
+                        seen.add(y)
+                        q.append(y)
+            res += 1
         
