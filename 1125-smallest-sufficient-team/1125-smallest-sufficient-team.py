@@ -15,7 +15,8 @@ class Solution(object):
             p_skill = 0
             for val in p:
                 p_skill |= 1 <<dic[val]
-            for skillset, need in list(dp.items()):
+            #for skillset, need in list(dp.items()):
+            for skillset, need in (dp.items()):
                 with_p = p_skill | skillset
                 if skillset == with_p:
                     continue
