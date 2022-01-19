@@ -1,5 +1,10 @@
-class Solution:
-    def smallestSufficientTeam(self, req_skills: List[str], people: List[List[str]]) -> List[int]:
+class Solution(object):
+    def smallestSufficientTeam(self, req_skills, people):
+        """
+        :type req_skills: List[str]
+        :type people: List[List[str]]
+        :rtype: List[int]
+        """
         dic = {val:i for i, val in enumerate(req_skills)}
         n = len(dic)
         
