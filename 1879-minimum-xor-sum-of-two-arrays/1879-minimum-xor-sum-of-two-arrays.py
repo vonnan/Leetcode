@@ -1,14 +1,12 @@
-
 class Solution:
     def minimumXORSum(self, nums1: List[int], nums2: List[int]) -> int:
-        n = len(nums2)
+        n = len(nums1)
         
         @lru_cache(None)
-        def dp(mask, i):
-            if i == n:
+        def dp(mask, r):
+            if r == n:
                 return 0
             
-            return min(dp(mask^(1 <<j), i + 1) + (nums1[i] ^ nums2[j]) for j in range(n) if mask & ( 1<<j))
+            return min(dp(mask ^ (1 << c), r + 1) + (nums1[r] ^ nums2[c]) for c in range(n) if mask & (1 << c) )
         
-        return dp((1 <<n) - 1, 0)
-                
+        return dp((1<<n)-1, 0)
