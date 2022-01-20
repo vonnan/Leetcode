@@ -1,29 +1,28 @@
 class Solution:
     def numberWays(self, hats: List[List[int]]) -> int:
-        n = len(hats)
+        n, mod = len(hats), 10 ** 9 + 7
+        
         h2p = defaultdict(set)
         
         for p, hs in enumerate(hats):
             for h in hs:
-                h2p[h].add(p)
-        
-        mod = 10 **9 + 7
-        
+                h2p[h-1].add(p)
+                
         @lru_cache(None)
-        def ct(h, mask):
+        def dp(mask, h):
             if mask == 0:
                 return 1
             
-            if h == 41:
+            if h == 40:
                 return 0
             
-            res = ct(h + 1, mask)
-            
+            res = dp(mask, h + 1)
             for p in h2p[h]:
                 if mask & (1 <<p):
-                    res += ct(h + 1, mask ^ (1 << p))
+                    mask_nxt = mask ^ ( 1<<p)
+                    res += dp(mask_nxt, h + 1)
                     res %= mod
-                    
+            
             return res
         
-        return ct(1, (1<<n) - 1)
+        return dp((1 <<n) - 1, 0)
