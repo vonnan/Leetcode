@@ -2,7 +2,11 @@ class Solution:
     def shortestSuperstring(self, words: List[str]) -> str:
         @lru_cache(None)
         def suff(w1,w2):
-            return [w2[i:] for i in range(len(w1) + 1) if w1[-i:] == w2[:i] or not i][-1]
+            m = min(len(w1), len(w2))
+            for i in range(m, -1, -1):
+                if w2[:i] == w1[-i:]:
+                    return w2[i:]
+            return w2
         
         n = len(words)
         @lru_cache(None)
