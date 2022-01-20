@@ -1,33 +1,31 @@
 class Solution:
     def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
         n, tot = len(nums), sum(nums)
-        nums.sort(reverse = 1)
-        
-        if n < k or tot % k:
+        if tot %k:
             return False
+        
+        nums.sort(reverse = 1)
         
         target = tot//k
         
         @lru_cache(None)
-        def helper(mask, sides, t):
-            if sides == 0 and mask == 0:
+        def helper(mask, side, t):
+            if mask == 0 and side == 0:
                 return True
             
             for i in range(n):
-                if mask & (1 << i):
-                 
-                    if nums[i] > t:
-                        #print(i, t, nums[i])
-                        break
+                if mask & ( 1<< i):
                     
-                    elif nums[i] == t:
-                        #print(i, t, nums[i], mask ^ (1 <<i), sides - 1, target)
-                        if helper(mask ^ (1 <<i), sides - 1, target):
+                    if nums[i] > t:
+                        break
+                    mask_nxt = mask ^ (1 <<i)
+                    if nums[i] == t:
+                        if helper(mask_nxt, side -1, target):
                             return True
-                    elif nums[i] < t:
-                        #print(i, t, nums[i], mask ^ (1 <<i), sides - 1, target)
-                        if helper(mask ^ (1 <<i), sides, t - nums[i]):
+                    else:
+                        if helper(mask_nxt, side, t - nums[i]):
                             return True
             return False
         
         return helper((1<<n)-1, k, target)
+                        
