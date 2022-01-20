@@ -14,6 +14,6 @@ class Solution:
             if mask == (1 <<n) -1:
                 return ""
             
-            return min([suffix(words[i], words[j] + dp(mask | 1 <<j, j)) for j in range(n) if not mask & 1<<j], key = len)
+            return min([suffix(words[i], words[j] + dp(mask | 1 <<j, j)) for j in range(n) if not mask & (1<<j)], key = len)
         
         return min([words[i] + dp(1<<i, i) for i in range(n)], key = len)
