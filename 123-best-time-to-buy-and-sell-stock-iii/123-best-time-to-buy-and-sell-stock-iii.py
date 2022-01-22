@@ -13,13 +13,13 @@ class Solution:
                 min_ = price
         
         dp_b = [0] * n
-        max_ = prices[-1]
+        max_, max_p = prices[-1], 0
         for i in range(n-2, -1, -1):
             if prices[i] <= max_:
-                dp_b[i] = max(dp_b[i+1], max_ - prices[i])
+                max_p = max(max_p, max_ - prices[i])
             else:
                 max_ = prices[i]
-                dp_b[i] = max(dp_b[i], dp_b[i+1])
+            dp_b[i] = max_p
         
         return max(dp[i] + dp_b[i] for i in range(n))
             
