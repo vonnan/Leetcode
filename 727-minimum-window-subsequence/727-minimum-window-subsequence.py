@@ -2,22 +2,27 @@ from bisect import bisect_left
 
 class Solution:
     def minWindow(self,S: str, T: str) -> str:
-        m,n = len(S), len(T)
-        dp = [[float('inf')]*(m+1) for i in range(n+1)]
-        for i in range(1,n+1):
-            for j in range(1,m+1):
-                if S[j-1] == T[i-1]:
-                    if i == 1:
-                        dp[i][j] = 1
+        row, col = len(T), len(S)
+        dp = [[inf]* (col + 1) for _ in range(row+1)]
+        
+        for r in range(row):
+            for c in range(col):
+                if S[c] == T[r]:
+                    if r== 0:
+                        dp[r+1][c+1] = 1
                     else:
-                        dp[i][j] = dp[i-1][j-1]+1
+                        dp[r+1][c+1] = 1 + dp[r][c]
                 else:
-                    dp[i][j] = dp[i][j-1]+1
-        res = min(dp[-1])
-        if res == float('inf'):return ''
-        for i in range(1,m+1):
-            if dp[-1][i] == res:
-                return S[i-res:i]
+                    dp[r+1][c+1] = 1 + dp[r + 1][c]
+        #print(dp)
+        min_ = min(dp[-1])
+        if min_ == inf:
+            return ""
+        
+        dp2 = dp[-1]
+        for c in range(min_, col+1):
+            if dp2[c] == min_:
+                return S[c - min_: c]
         
         
         
