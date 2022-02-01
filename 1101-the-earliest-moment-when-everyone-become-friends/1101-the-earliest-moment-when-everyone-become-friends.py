@@ -7,6 +7,11 @@ class Solution:
                 UF[x] = find(UF[x])
             return UF[x]
         
+        def union(x,y):
+            UF.setdefault(x,x)
+            UF.setdefault(y,y)
+            UF[find(x)] = find(y)
+            
         logs.sort()
         res = n
         for t,u,v in logs:
@@ -14,7 +19,7 @@ class Solution:
                 continue
             else:
                 res -= 1
-                UF[find(u)] = find(v)
+                union(u, v)
                 if res == 1:
                     return t
         
