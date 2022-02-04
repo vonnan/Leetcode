@@ -13,7 +13,7 @@ class Solution:
                 res = max(res, i - dic[ct])
             else:
                 dic[ct] = i
-        print(dic)    
+            
         return res
         
         
