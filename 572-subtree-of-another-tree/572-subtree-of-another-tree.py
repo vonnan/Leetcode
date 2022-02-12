@@ -12,13 +12,10 @@ class Solution:
             
             return node1.val == node2.val and same(node1.left, node2.left) and same(node1.right, node2.right)
         
-        def dfs(root):
-            if same(root, subRoot):
-                return True
-            
-            if not root:
-                return False
-            
-            return dfs(root.left) or dfs(root.right)
+        if not root:
+            return False
         
-        return dfs(root)
+        if same(root, subRoot):
+            return True
+        
+        return self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
