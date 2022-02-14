@@ -8,7 +8,7 @@ class Solution:
             res = 0
             for slot in range(ns):
                 t = 3 ** slot
-                if ((mask // t) % 3):
+                if  ((mask // t) % 3):
                     res = max(res, dp(i + 1, mask - t) + (A[i] & (slot+1)))
             return res
         return dp(0, 3 ** ns -1)                    
