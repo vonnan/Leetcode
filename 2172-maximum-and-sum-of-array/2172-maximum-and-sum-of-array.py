@@ -6,12 +6,12 @@ class Solution:
         def dp(i, mask):
             if i == len(A): return 0
             res = 0
-            for slot in range(1, ns+1):
-                b = 10 ** (slot -1)
-                if ((mask // b) % 10) < 2:
-                    res = max(res, dp(i + 1, mask + b) + (A[i] & slot))
+            for slot in range(ns):
+                t = 3 ** slot
+                if ((mask // t) % 3):
+                    res = max(res, dp(i + 1, mask - t) + (A[i] & (slot+1)))
             return res
-        return dp(0, 0)                    
+        return dp(0, 3 ** ns -1)                    
             
         
                            
