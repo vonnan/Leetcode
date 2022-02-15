@@ -1,17 +1,31 @@
 
 class Solution:
-    #def maximumANDSum(self, nums: List[int], A: int) -> int:
-    def maximumANDSum(self, A: List[int], ns: int) -> int:
+    def maximumANDSum(self, nums: List[int], A: int) -> int:
+        lst = list(range(1, A+1)) + list(range(1, A+1))
+        n = len(nums) 
+        nums.sort(reverse = 1)
+        
         @cache
         def dp(i, mask):
-            if i == len(A): return 0
             res = 0
-            for slot in range(ns):
-                t = 3 ** slot
-                if  ((mask // t) % 3):
-                    res = max(res, dp(i + 1, mask - t) + (A[i] & (slot+1)))
+            if i == n:
+                return 0
+            #print(i, bin(mask)[2:])
+            
+            for j, slot in enumerate(lst):
+                if mask & (1 << j):
+                    res = max(res, (nums[i] & slot) + dp(i+1, mask ^ (1<<j)))
+            
             return res
-        return dp(0, 3 ** ns -1)                    
+        
+        return dp(0, (1<< (2 * A)) - 1)
+    
+    
+                              
+            
+            
+                
+                    
             
         
                            
