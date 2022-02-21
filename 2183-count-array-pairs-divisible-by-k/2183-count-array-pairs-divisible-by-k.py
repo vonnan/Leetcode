@@ -4,7 +4,7 @@ class Solution:
         ct = Counter([gcd(num, k) for num in nums])
         
         lst = sorted(ct.keys())
-        print(ct, lst)
+        
         res = 0
         for i, a in enumerate(lst):
             for j, b in enumerate(lst[i:],i):
