@@ -9,7 +9,7 @@ class Solution:
         while nums:
             while nums and nums[0] == 1:
                 res.append(nums.pop(0))
-            while nums and nums[0] == res[-1]:
+            while nums and (nums[0] == res[-1]):
                 nums.pop(0)
             if not nums:
                 return res[1:]
