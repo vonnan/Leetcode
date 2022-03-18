@@ -38,17 +38,18 @@ You can treat it as the driver code that takes the postinfix input
 and returns the expression tree represnting it as a Node.
 """
 
-
 class TreeBuilder(object):
     def buildTree(self, postfix: List[str]) -> 'Node':
-        cur, stack = None, []
+        curr, stack = None, []
         for c in postfix:
-            cur = TreeNode(c)
+            curr = TreeNode(c)
             if not c.isdigit():
-                cur.right = stack.pop()
-                cur.left = stack.pop()
-            stack.append(cur)
-        return cur 		
+                curr.right = stack.pop()
+                curr.left = stack.pop()
+            stack.append(curr)
+        return curr
+    
+		
 """
 Your TreeBuilder object will be instantiated and called as such:
 obj = TreeBuilder();
