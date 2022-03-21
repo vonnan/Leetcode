@@ -3,12 +3,13 @@ class Solution:
         ct = floor.count("1")
         @lru_cache(None)
         def dp(i, k):
-            if i <= 0:
+            if i < 0:
                 return 0
-            
-            return min(dp(i-1, k) + int(floor[i-1]), dp(i-L, k-1) if k else ct)
+            if k < 0:
+                return inf
+            return min(dp(i-1, k) + int(floor[i]), dp(i-L, k-1) if k else ct)
         
-        return dp(len(floor), c)
+        return dp(len(floor) - 1, c)
                 
         
         
