@@ -9,7 +9,7 @@ class Solution:
             if i < 0:
                 return 0
             
-            return min(dp(i-1, k) + int(floor[i]), dp(i-L, k-1))
+            return min(dp(i-L, k-1), dp(i-1, k) + int(floor[i]))
         
         return dp(len(floor) - 1, c)
                 
