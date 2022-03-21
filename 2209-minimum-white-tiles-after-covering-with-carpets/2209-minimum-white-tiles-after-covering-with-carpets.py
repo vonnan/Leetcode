@@ -4,7 +4,8 @@ class Solution:
         def dp(i, k):
             if i <= 0:
                 return 0
-            return min(dp(i-1, k) + int(floor[i-1]), dp(i-L, k-1) if k else 1000)
+            
+            return min(dp(i-1, k) + int(floor[i-1]), dp(i-L, k-1) if k else len(floor))
         
         return dp(len(floor), c)
                 
