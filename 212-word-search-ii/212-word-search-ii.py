@@ -1,36 +1,30 @@
 class Solution:
-    def checkList(self, board, row, col, word, trie, rList):
-        if row<0 or row>=len(board) or col<0 or col>=len(board[0]) or board[row][col] == '.' or board[row][col] not in trie: return
-        c = board[row][col]
-        _word= word + c
-        if '#' in trie[c]: 
-            rList.add(_word)
-            if len(trie[c]) == 1: return # if next node is empty, return as no there is no need to search further
-        board[row][col] = '.'
-        self.checkList(board, row-1, col, _word, trie[c], rList) #up
-        self.checkList(board, row+1, col, _word, trie[c], rList) #down
-        self.checkList(board, row, col-1, _word, trie[c], rList) #left
-        self.checkList(board, row, col+1, _word, trie[c], rList) #right
-        board[row][col] = c
-    
-    def findWords(self, board, words):
-        """
-        :type board: List[List[str]]
-        :type words: List[str]
-        :rtype: List[str]
-        """
-        if not board or not words: return []
-        # building Trie
-        trie, rList = {}, set()
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        trie, res = {}, []
         for word in words:
-            t = trie
-            for c in word:
-                if c not in t: t[c] = {}
-                t = t[c]
-            t['#'] = None
-        for row in range(len(board)):
-            for col in range(len(board[0])):
-                if board[row][col] not in trie: continue
-                self.checkList(board, row, col, "", trie, rList)
-        return list(rList)                
-                
+            cur_node = trie
+            for letter in word:
+                if letter not in cur_node:
+                    cur_node[letter] = {}
+                cur_node = cur_node[letter]
+            cur_node['word'] = word
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                self.dfs(board, i, j, trie, res)
+        return res
+            
+    def dfs(self, board, i, j, cur_node, res):
+        if 'word' in cur_node:
+            res.append(cur_node['word'])
+            cur_node.pop('word')
+        if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]) or board[i][j] not in cur_node:
+            return
+        next_node = cur_node[board[i][j]]
+        board[i][j] = board[i][j].upper()
+        self.dfs(board, i-1, j, next_node, res)
+        self.dfs(board, i+1, j, next_node, res)
+        self.dfs(board, i, j-1, next_node, res)
+        self.dfs(board, i, j+1, next_node, res)
+        board[i][j] = board[i][j].lower()
+        if not cur_node[board[i][j]]:
+            cur_node.pop(board[i][j])
