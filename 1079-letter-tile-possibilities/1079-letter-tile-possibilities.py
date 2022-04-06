@@ -1,10 +1,21 @@
-from itertools import permutations 
 class Solution:
     def numTilePossibilities(self, tiles: str) -> int:
+        
+        def perm(s, path, m, res):
+            if len(path) == m:
+                res.append(tuple(path))
+                
+            for i in range(len(s)):
+                perm(s[:i] + s[i+1:], path + [s[i]], m, res)
+            
+            return res
+                
+            
+        
         n = len(tiles)
         res = set([])
         for i in range(1, n+1):
-            for x in permutations(tiles, i):
+            for x in perm(tiles, [], i, []):
                 res.add("".join(x))
         return len(res)
             
