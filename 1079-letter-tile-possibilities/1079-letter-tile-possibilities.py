@@ -6,6 +6,8 @@ class Solution:
                 res.append(tuple(path))
                 
             for i in range(len(s)):
+                if i > 0 and s[i] == s[i-1]:
+                    continue
                 perm(s[:i] + s[i+1:], path + [s[i]], m, res)
             
             return res
