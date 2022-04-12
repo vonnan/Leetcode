@@ -2,13 +2,13 @@ class ProductOfNumbers:
 
     def __init__(self):
         self.q = []
-        self.product = {0: 1}
+        self.product = [1]
         self.size = 0
 
     def add(self, num: int) -> None:
         self.q.append(num)
         self.size += 1
-        self.product[self.size] = self.product[self.size - 1] * num
+        self.product.append(self.product[- 1] * num)
 
     def getProduct(self, k: int) -> int:
         res = 1
