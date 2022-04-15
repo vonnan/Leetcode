@@ -13,8 +13,7 @@ class Solution:
                     
                 stack.pop()
                 stack.extend(res)
-                
-                
+                         
         return "".join(stack)
                     
                     
