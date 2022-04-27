@@ -1,11 +1,14 @@
 class Solution:
-    def minReorder(self, n: int, A: List[List[int]]) -> int:
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
         res = 0
+        
         dic = defaultdict(list)
-        q = deque([0])
-        for u, v in A:
+        
+        for u, v in connections:
             dic[u].append((v, False))
             dic[v].append((u, True))
+            
+        q = deque([0])
         visited = set([0])
         
         while q:
@@ -17,9 +20,3 @@ class Solution:
                     visited.add(nei)
                     q.append(nei)
         return res
-            
-        
-        
-                
-                
-            
