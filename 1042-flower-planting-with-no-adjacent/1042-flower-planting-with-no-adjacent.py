@@ -9,7 +9,8 @@ class Solution:
             G[v - 1].append(u - 1)
             
         for u in range(n):
-            res[u] = (set(range(1, 5)) - {res[v] for v in G[u] }).pop()
+            res[u] = (set(range(1, 5)) - {res[v] for v in G[u]}).pop()
+            
         
         return res
                 
