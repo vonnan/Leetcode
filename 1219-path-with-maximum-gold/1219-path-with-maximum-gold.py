@@ -1,7 +1,6 @@
 class Solution:
     def getMaximumGold(self, grid: List[List[int]]) -> int:
         path = [(0,1), (0, -1), (1, 0), (-1, 0)]
-        visited = set([])
         
         row, col = len(grid), len(grid[0])
         res = 0
