@@ -1,6 +1,7 @@
 class Solution:
     def find132pattern(self, nums: List[int]) -> bool:
         min_ = -inf
+        
         stack = []
         
         for num in nums[::-1]:
@@ -11,5 +12,5 @@ class Solution:
                 min_ = stack.pop()
             
             stack.append(num)
+        
         return False
- 
