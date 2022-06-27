@@ -17,7 +17,7 @@ class Solution:
                     res = c + res
                 else:
                     res = dic[c] + res
-            return [num + res] if n % 2 ==0 else [num + "0" + res, num + "1" + res, num + "8" + res]
+            return [num + res] if n % 2 ==0 else [num + c + res for c in same]
         
         res = []
         for num in sets:
