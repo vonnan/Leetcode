@@ -11,7 +11,7 @@ class NumMatrix:
         for r in range(self.r):
             for c in range(self.c):
                 self.dp[r+1][c+1] = matrix[r][c] + self.dp[r+1][c] + self.dp[r][c+1] - self.dp[r][c]
-               
+                
 
     def update(self, row: int, col: int, val: int) -> None:
         diff = val - self.mat[row][col]
@@ -19,7 +19,7 @@ class NumMatrix:
         for r in range(row, self.r):
             for c in range(col, self.c):
                 self.dp[r+1][c+ 1] += diff
-           
+            
         
 
     def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
