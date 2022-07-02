@@ -1,11 +1,6 @@
 class Solution:
     def minimumDeletions(self, s: str) -> int:
-        s = list(s)
-        while s and s[-1] == "b":
-            s.pop()
-            
-        while s and s[0] == "a":
-            s.pop(0)
+        
             
         prefix, suffix = [0], [0]
         for c in s:
