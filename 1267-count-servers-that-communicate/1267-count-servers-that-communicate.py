@@ -34,6 +34,6 @@ class Solution:
                 for r in lst:
                     sets.add((r, c))
         
-        print(ct, sets)
+        
         return len(sets)
                     
