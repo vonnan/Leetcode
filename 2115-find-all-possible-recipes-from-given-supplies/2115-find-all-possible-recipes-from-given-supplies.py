@@ -3,6 +3,8 @@ class Solution:
         res = set([])
         
         supplies = set(supplies)
+        tot = supplies | set(recipes)
+
         q = deque([])
         
         for r,i in zip(recipes, ingredients):
@@ -10,7 +12,8 @@ class Solution:
                 res.add(r)
                 supplies.add(r)
             else:
-                q.append((r, i))
+                if set(i) & tot == set(i):
+                    q.append((r, i))
                 
                 
         if not q:
