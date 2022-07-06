@@ -1,3 +1,6 @@
+from bisect import bisect_left
+from bisect import bisect
+
 class Solution:
     def sequentialDigits(self, low: int, high: int) -> List[int]:
         res =[]
@@ -5,12 +8,8 @@ class Solution:
         for d in range(2, 10):
             res.extend(int("".join([str(x) for x in range(i ,i + d)])) for i in range(1,11 - d))
         
-        while res and res[0] < low:
-            res.pop(0)
-            
-        while res and res[-1] > high:
-            res.pop()
-            
-        return res
+        idx_l = bisect_left(res, low)
+        idx_r = bisect(res,high)
+        return res[idx_l:idx_r]
                 
                 
