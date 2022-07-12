@@ -11,6 +11,7 @@ class Solution:
             for a in A:
                 if ct + a <= mid:
                     ct += a
+                   
                 else:
                     ct = 0
                     chunk += 1
