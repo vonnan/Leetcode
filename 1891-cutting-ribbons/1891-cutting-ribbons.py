@@ -3,9 +3,7 @@ class Solution:
         left, right = 1, max(ribbons)
         if sum(ribbons) < k:
             return 0
-        elif sum(x//right for x in ribbons) >= k:
-            return right
-        
+                
         while left < right:
             mid = (left + right + 1)//2
             ct = sum(x//mid for x in ribbons)
