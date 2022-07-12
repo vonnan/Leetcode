@@ -8,17 +8,20 @@
 class Solution:
     def search(self, reader: 'ArrayReader', target: int) -> int:
         left, right = 0, 10**4
-        max_ = 2**31 -1
+        mark = 2**31 - 1
         while left < right:
             mid = (left + right)//2
-            if reader.get(mid) == target:
-                return mid
+            num = reader.get(mid)
             
-            if reader.get(mid) == max_:
-                right = mid
-            if reader.get(mid) < target:
+            if num == target:
+                return mid
+            elif num < target:
                 left = mid + 1
             else:
                 right = mid
-        
+            
+        if reader.get(left) == target:
+            return left
         return -1
+            
+            
