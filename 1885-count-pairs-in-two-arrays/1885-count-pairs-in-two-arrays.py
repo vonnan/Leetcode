@@ -5,6 +5,7 @@ class Solution:
         nums = sorted([a - b for a, b in zip(nums1, nums2)], reverse = 1)
         nums_r = [-num for num in nums]
         res = 0
+       
         for num in nums:
             idx = bisect_left(nums_r, num)
             res += idx
