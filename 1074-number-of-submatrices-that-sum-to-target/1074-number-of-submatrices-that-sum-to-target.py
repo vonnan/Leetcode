@@ -11,17 +11,15 @@ class Solution:
         
         for c1 in range(col):
             for c2 in range(c1, col):
-                prefix =[0]
+                prefix =0
                 dic = defaultdict(int)
                 dic[0] = 1
                 for r in range(row):
                     x = matrix[r+1][c2+1] - matrix[r+1][c1]
-                    x += prefix[-1]
-                    if x- target in dic:
-                        res += dic[x- target]
-                        
-                    prefix.append(x)
-                    dic[x] += 1
+                    prefix += x
+                    if prefix- target in dic:
+                        res += dic[prefix- target]
+                    dic[prefix] += 1
             
         return res
                 
