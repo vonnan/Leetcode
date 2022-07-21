@@ -17,26 +17,18 @@ class Solution:
             return -1
         
         #find pivot
-        pivot = right
-        flag = False
+        
         while left < right:
             mid = (left + right)//2
             num = A.get(mid)
-            
-            l, r = A.get(max(mid-1, left)), A.get(min(mid + 1, right))
-            #print(mid, num, l, r)
-            if l < num and num > r:
-                pivot = mid 
-                print(pivot)
-                flag = True
-                break
-            elif l < num < r:
+            nxt = A.get(mid + 1)
+            if num < nxt:
                 left = mid + 1
             else:
                 right = mid
-        if not flag:
-            pivot = left
         
+        pivot = left
+                    
         if target > A.get(pivot):
             return -1
         elif target == A.get(pivot):
