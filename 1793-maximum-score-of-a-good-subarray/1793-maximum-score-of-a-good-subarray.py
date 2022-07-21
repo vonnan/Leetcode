@@ -1,31 +1,31 @@
-from bisect import insort
-from bisect import bisect_left
-from heapq import heappush
-from heapq import heappop
-
 class Solution:
     def maximumScore(self, nums: List[int], k: int) -> int:
+        left, right = k, k
+        min_, res = nums[k], nums[k]
         n = len(nums)
-        heap = []
-        lst = [-1, n]
         
-        for i, num in enumerate(nums):
-            heappush(heap, (num, i))
-            
-        res = 0
-        while heap:
-            min_, i = heappop(heap)
-            #print(min_, i, lst)
-            idx = bisect_left(lst, i)
-            if lst[idx-1] < k < lst[idx]:
-                res = max(res, min_ * (lst[idx]- lst[idx-1] - 1))
-            lst.insert(idx, i)
+        while left > 0 and right < n-1:
+            if nums[left -1] == nums[right + 1]:
+                left -= 1
+                right += 1
+                min_ = min(nums[left], min_)
+            elif nums[left -1] > nums[right + 1]:
+                left -= 1
+                min_ = min(nums[left], min_)
+            else:
+                right += 1
+                min_ = min(nums[right], min_)
+            res = max(res, min_ * (right - left + 1))
+        
+        while left > 0:
+            left -= 1
+            min_ = min(nums[left], min_)
+            res = max(res, min_ * (right - left + 1))
+        
+        while right < n-1:
+            right += 1
+            min_ = min(nums[right], min_)
+            res = max(res, min_ * (right - left + 1))
             
         return res
-        
-            
-            
-        
-        
                 
-        
