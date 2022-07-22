@@ -2,19 +2,17 @@ class Solution:
     def leadsToDestination(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
         graph = defaultdict(set)
         for u, v in edges:
-            
             graph[u].add(v)
-        #print(graph)    
+            
         seen = set([])
         
-        def dfs(i):
-            seen.add(i)
-            for j in graph[i]:
-                if j == i or j in seen or not dfs(j):
+        def dfs(u):
+            seen.add(u)
+            for v in graph[u]:
+                if u == v or (v in seen) or (not dfs(v)):
                     return False
-            seen.discard(i)
-            return len(graph[i]) != 0 or i == destination
-        
-        return dfs(source)            
             
-                
+            seen.discard(u)
+            return graph[u] or u == destination
+        
+        return dfs(source)
