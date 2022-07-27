@@ -6,7 +6,7 @@ class Solution:
         
         
         sets = set([])
-        print(res, lst)
+        
         for key in counter:
             if key not in sets and key[0] != key[1] and (key[::-1] in counter):
                 res += 4*(min(counter[key], counter[key[::-1]]))
