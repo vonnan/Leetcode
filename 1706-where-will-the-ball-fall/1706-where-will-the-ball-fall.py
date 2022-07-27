@@ -16,7 +16,7 @@ class Solution:
                     nxt.append(c - 1)
                 else:
                     nxt.append(-1)
-            print(res, nxt)
+            
             res = nxt
         return res
                 
