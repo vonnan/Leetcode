@@ -8,7 +8,9 @@ class Solution:
         sets = set([])
         
         for key in counter:
-            if key not in sets and key[0] != key[1] and (key[::-1] in counter):
+            if key[0] == key[1]:
+                sets.add(key)
+            elif key not in sets  and (key[::-1] in counter):
                 res += 4*(min(counter[key], counter[key[::-1]]))
         
                 sets.add(key)
