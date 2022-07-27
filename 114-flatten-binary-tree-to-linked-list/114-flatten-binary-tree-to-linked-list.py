@@ -10,14 +10,13 @@ class Solution:
         Do not return anything, modify root in-place instead.
         """
         
-        q = [root]
-        
+        q = deque([root])
         while root and q:
             root = q.pop()
             
             if root.right:
                 q.append(root.right)
-                
+            
             if root.left:
                 q.append(root.left)
                 root.right = root.left
@@ -26,5 +25,11 @@ class Solution:
                 if q:
                     root.right = q[-1]
                     root.left = None
+                    
+        
+                
+            
+        
+        
                     
                 
