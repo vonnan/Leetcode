@@ -9,7 +9,7 @@ class Solution:
             res |= curr
         
         res = sorted(list(res))
-        print(res)
+        
         idx = bisect_left(res, target)
         if idx ==0:
             return res[0] - target
