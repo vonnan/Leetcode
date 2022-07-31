@@ -1,26 +1,22 @@
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        ct = Counter(t)
-        if not t or not s or (Counter(s) & ct != ct ):
-            return ""
+        ct_t, ct_s, res = Counter(t), Counter(), inf
+        seen, size, l, ans = set(), len(ct_t), 0, ""
         
-        cs = Counter()
-        
-        min_ = inf
-        j = 0
-        ans = ""
-        for i, c in enumerate(s):
-            if c in ct:
-                cs[c] += 1
-                if cs[c] >= ct[c] and (cs & ct == ct):
-                    while cs & ct == ct:
-                        cs[s[j]] -= 1
-                        j += 1
-                    j -= 1
-                    cs[s[j]] += 1
-                    if i - j + 1 < min_:
-                        ans = s[j: i + 1]
-                        min_ = i - j + 1
-        return ans
-                    
+        for r, ch in enumerate(s):
+            ct_s[ch] += 1
+            if ch in ct_t and ch not in seen and ct_t[ch] == ct_s[ch]:
+                seen.add(ch)
             
+            while len(seen) == size:
+                if ct_t[s[l]] == ct_s[s[l]]:
+                    seen.remove(s[l])
+                    if res > r-l+1:
+                        res = r-l+1
+                        ans = s[l:r+1]
+                ct_s[s[l]] -= 1
+                l += 1
+        
+        return ans
+            
+    
