@@ -12,10 +12,10 @@ class Solution:
             
             while len(seen) == size:
                 if ct_t[s[l]] == ct_s[s[l]]:
-                    #make the left side as "compact" as possible
+                    #make the left side as "compact" as possible: if the leftmost character can not be removed, it the "shortest" we can get with the rightmost position as r
                     seen.remove(s[l])
-                    if res > r-l+1:
-                        res = r-l+1
+                    if res > r - l + 1:
+                        res = r - l + 1
                         ans = s[l:r+1]
                 ct_s[s[l]] -= 1
                 l += 1
