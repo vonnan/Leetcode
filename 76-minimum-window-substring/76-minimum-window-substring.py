@@ -5,11 +5,14 @@ class Solution:
         
         for r, ch in enumerate(s):
             ct_s[ch] += 1
-            if ch in ct_t and ch not in seen and ct_t[ch] == ct_s[ch]:
+            #counter of t of ch adds 1
+            if ch in ct_t and ct_t[ch] == ct_s[ch]:
                 seen.add(ch)
+            #if ct_t[ch] == ct_s[ch], add ch to seen
             
             while len(seen) == size:
                 if ct_t[s[l]] == ct_s[s[l]]:
+                    #make the left side as "compact" as possible
                     seen.remove(s[l])
                     if res > r-l+1:
                         res = r-l+1
