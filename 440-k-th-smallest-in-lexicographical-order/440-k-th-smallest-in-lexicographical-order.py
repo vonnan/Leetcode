@@ -11,14 +11,14 @@ class Solution:
         res = 1
         while k > 1:
             ct = helper(res)
-            print(k, ct, res)
+            
             if k > ct:
                 res += 1
                 k -= ct
             else:
                 res *= 10
                 k -= 1
-            print("after", k, ct, res)
+            
             
         
         return res
