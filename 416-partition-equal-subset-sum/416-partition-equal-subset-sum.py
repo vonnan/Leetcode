@@ -1,17 +1,22 @@
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-        if sum(nums) % 2:
+        nums.sort()
+        tot = sum(nums)
+        if tot %2 or nums[-1] > tot//2:
             return False
         
-        target = sum(nums)//2
-        nums.sort()
+        target = tot//2 - nums.pop()
+        if not target:
+            return True
+        
         sets = set([0])
         
         for num in nums:
-            if num > target:
-                return False
-            
-            if target - num in sets:
+            sets |= set([num + x for x in sets])
+            if target in sets:
                 return True
-            
-            sets |= set([num + x for x in sets if num + x < target])
+        return False
+                
+        
+        
+       
