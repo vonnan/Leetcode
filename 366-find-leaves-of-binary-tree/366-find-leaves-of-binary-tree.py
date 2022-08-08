@@ -17,10 +17,12 @@ class Solution:
             
             layer = max(left, right)
             dic[layer].append(node.val)
-            #print(node, left, right, dic)
             
             return layer + 1
         
         dfs(root, 0)
-        
+        print(dic)
         return dic.values()
+        
+    
+            
