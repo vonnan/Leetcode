@@ -6,12 +6,12 @@ class Solution:
                 UF[x] = find(UF[x])
             return UF[x]
         
-        def union(x,y):
+        def union(x, y):
             UF.setdefault(x, x)
             UF.setdefault(y, y)
             UF[find(x)] = find(y)
             
         for r,c in stones:
             union(r, ~c)
-            
-        return len(stones) - len(set(find(x) for x in UF))
+        
+        return len(stones) - len(set(find(r) for r,c in stones))
