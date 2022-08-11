@@ -5,8 +5,8 @@ class Solution:
         if k == 0:
             return 0
         
-        presum = 0
+        
         for i, num in enumerate(chalk):
-            presum += num
-            if presum > k:
+            k -= num
+            if k < 0:
                 return i
