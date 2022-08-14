@@ -1,46 +1,61 @@
 class Solution:
-    def findLadders(self, beginWord: str, endWord: str, wordList):
+    def findLadders(self, begin: str, end: str, List: List[str]) -> List[List[str]]:
+        dic = defaultdict(set)
+        q = deque([begin])
+        
+        List = set(List + [begin])
+        n = len(begin)
+        
+        #Create a dictionary: for example: dic[*og] = [hog, cog, log], dic[ho*] = [hot, hog]
+        for word in List:
+            for i in range(n):
+                dic[word[:i] + "*" + word[i+1:]].add(word)
+        
+        # for each level, create an edge dictionary from current word to next word with one character difference
+        q = set([begin])
+        edges = {}
+        level = 0
+        while q:
+            flag = False
+            edges[level] = defaultdict(set)
+            m = len(q)
+            for word in q:
+                List.discard(word)
+            nq = set([])
+            for word in q:
+            
+                if word == end:
+                    flag = True
+                    break
+                for i in range(n):
+                    nxt = word[:i] + "*" + word[i+1:]
+                    for wd in dic[nxt]:
+                        if wd in List:
+                            edges[level][wd].add(word)
+                            nq.add(wd)
+                            
+            if flag:
+                break
+            level += 1
+            q = nq
+        
         res = []
-        edge = collections.defaultdict(set)
-        wordList = set(wordList)
-        for word in wordList:
-            for i in range(len(word)):
-                edge[word[:i] +'*'+word[i+1:]].add(word)
-        bfsedge = {}
-
-        def bfs():
-            minl = 0
-            queue = set()
-            queue.add(beginWord)
-            while queue:
-                next_queue = set()
-                for word in queue:
-                    if word in wordList:
-                        wordList.remove(word)
-                bfsedge[minl] = collections.defaultdict(set)
-                for word in queue:
-                    if word == endWord:
-                        return minl
-                    for i in range(len(word)):
-                        for w in edge[word[:i]+'*'+word[i+1:]]:
-                            if w in wordList:
-                                next_queue.add(w)
-                                bfsedge[minl][w].add(word)
-                queue = next_queue
-                minl += 1
-            return minl
-
-        def dfs(seq, endWord):
-            if seq[-1] == endWord:
-                res.append(seq.copy())
+        
+        
+        def dfs(path):
+            last, m = path[0], len(path)
+            
+            if last == begin:
+                res.append(path.copy())
                 return
-            for nextWord in bfsedge[minl-len(seq)][seq[-1]]:
-                if nextWord not in seq:
-                    dfs(seq+[nextWord], endWord)
-
-        minl = bfs()
-        dfs([endWord], beginWord)
-        # reverse the sequence
-        for sq in res:
-            sq.reverse()
+            
+            for word in edges[level - m][last]:
+                if word not in path:
+                    #print(word)
+                    dfs([word] + path)
+                    
+        dfs([end])
         return res
+            
+                
+        
