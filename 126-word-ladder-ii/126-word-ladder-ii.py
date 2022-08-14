@@ -43,16 +43,16 @@ class Solution:
         
         
         def dfs(path):
-            last, m = path[0], len(path)
+            last, m = path[0], level  - len(path)
             
             if last == begin:
                 res.append(path.copy())
                 return
             
-            for word in edges[level - m][last]:
+            for word in edges[m][last]:
                 if word not in path:
                     #print(word)
-                    dfs([word] + path)
+                    dfs(  [word] + path)
                     
         dfs([end])
         return res
