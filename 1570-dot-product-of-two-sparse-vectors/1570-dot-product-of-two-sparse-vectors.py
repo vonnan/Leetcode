@@ -1,11 +1,11 @@
 class SparseVector:
     def __init__(self, nums: List[int]):
-        self.dic = {i:v for i, v in enumerate(nums)}
+        self.dic = [num for num in nums]
 
     # Return the dotProduct of two sparse vectors
     def dotProduct(self, vec: 'SparseVector') -> int:
-        a, b = self.dic, vec.dic
-        return sum(a[i] * b[i] for i in a)
+        A, B = self.dic, vec.dic
+        return sum(a * b for a, b in zip(A, B))
 
 # Your SparseVector object will be instantiated and called as such:
 # v1 = SparseVector(nums1)
