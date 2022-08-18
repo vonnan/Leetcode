@@ -1,37 +1,29 @@
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
-        n = len(accounts)
-        UF = {i:i for i in range(n)}
+        UF = {}
         def find(x):
             if UF[x] != x:
                 UF[x] = find(UF[x])
             return UF[x]
-        
-        def union(x,y):
-            UF.setdefault(x,x)
-            UF.setdefault(y,y)
+        def union(x, y):
+            UF.setdefault(x, x)
+            UF.setdefault(y, y)
             UF[find(x)] = find(y)
         
-        dic = defaultdict(int)
-        for i, account in enumerate(accounts):
-            for email in account[1:]:
-                if email in dic:
-                    union(dic[email], i)
-                else:
-                    dic[email] = i
+        cluster = defaultdict(set)
+        email_2_name = {}
+        for account in accounts:
+            name = account[0]
+            emails = account[1:]
+            for email in emails:
+                email_2_name[email] = name
+                union(email, emails[0])
+         
+        for email in UF:
+            cluster[find(email)].add(email)
+        
+        return [[email_2_name[key]] + sorted(list(val)) for key, val in cluster.items()]
         
         
-        dic2= defaultdict(set)
-        for i in range(n):
-            dic2[find(i)] |= set(accounts[i][1:])
-        
-        res = []
-        for key in dic2:
-            lst = [accounts[key][0]]
-            lst.extend(sorted(list(dic2[key])))
-            res.append(lst)
-            
-        return res
-            
         
                 
