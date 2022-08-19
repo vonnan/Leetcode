@@ -1,7 +1,7 @@
 class Solution:
     def singleNonDuplicate(self, nums: List[int]) -> int:
         nums = [-1, -1] + nums + [1000000, 1000000]
-        print(nums, len(nums))
+        #print(nums, len(nums))
         left, right = 0, len(nums) - 1
         while left < right:
             mid = (left + right)//2
