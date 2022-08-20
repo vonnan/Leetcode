@@ -12,8 +12,6 @@ class Solution:
             if arr[i] > arr[i + 1]:
                 dp_down[i] = dp_down[i+1] + 1
         
-        
-        
         lst = [a + b + 1 for a, b in zip(dp_up, dp_down) if a and b]
         if not lst:
             return 0
