@@ -1,6 +1,3 @@
-from bisect import bisect
-from bisect import bisect_left
-from bisect import insort
 
 class Solution:
     def fallingSquares(self, A: List[List[int]]) -> List[int]:
