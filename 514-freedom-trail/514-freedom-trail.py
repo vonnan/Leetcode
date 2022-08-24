@@ -17,8 +17,8 @@ class Solution:
                 nxt[i] = inf
                 for pos in state:
                     nxt[i] = min(nxt[i], state[pos] + dist(i, pos))
-            
             state = nxt
+        
         return min(state.values()) + len(key)
                 
         
