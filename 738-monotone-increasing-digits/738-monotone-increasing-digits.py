@@ -1,28 +1,24 @@
 class Solution:
     def monotoneIncreasingDigits(self, n: int) -> int:
-        res = ""
-        prev = 0
         if n < 10:
             return n
         
         s = str(n)
         n = len(s)
-        for i in range(1, n + 1):
-            if i == n:
-                while prev < i:
-                    res += s[prev]
-                    prev += 1
-            elif s[prev] == s[i]:
-                continue
-            elif s[prev] < s[i]:
-                while prev < i:
-                    res += s[prev]
-                    prev += 1
-            else:
-                res += str(int(s[prev]) - 1)
-                res += "9" * (n - len(res))
-                return int(res)
-        return int(res)
+        res = [int(c) for c in s]
+        
+        for i in range(1, n):
+            if res[i] < res[i - 1]:
+                while i > 0 and res[i] <= res[i-1]:
+                    i -= 1
+                res[i] -= 1
+                res[i+ 1:] = [9] * ( n - ( i + 1))
+                return int("".join([str(num) for num in res]))
+        return int("".join([str(num) for num in res]))
+        
+        
+        
+        
                 
             
         
