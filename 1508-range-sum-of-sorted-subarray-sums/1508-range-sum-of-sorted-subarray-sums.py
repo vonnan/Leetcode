@@ -4,10 +4,9 @@ class Solution:
         res, mod = [], 10 ** 9 + 7
         
         for i in range(n):
-            tot = nums[i]
-            res.append(tot)
+            tot = 0
             
-            for j in range(i + 1, n):
+            for j in range(i, n):
                 tot += nums[j]
                 res.append(tot)
         
