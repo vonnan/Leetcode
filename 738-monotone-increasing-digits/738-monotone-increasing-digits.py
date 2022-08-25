@@ -14,8 +14,7 @@ class Solution:
                 res[i] -= 1
                 res[i+ 1:] = [9] * ( n - ( i + 1))
                 return int("".join([str(num) for num in res]))
-        return int("".join([str(num) for num in res]))
-        
+        return int(s)
         
         
         
