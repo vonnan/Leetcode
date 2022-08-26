@@ -14,7 +14,7 @@ class Solution:
             start = 0
             ct = 1
             while start < n:
-                idx = bisect_left(A, A[start] + mid)
+                idx = bisect_left(A, A[start] + mid, start)
                 if idx == start or idx == n:
                     break
                 start = idx
