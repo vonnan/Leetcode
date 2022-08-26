@@ -8,8 +8,11 @@ class Solution:
             res += 1
             maxSum -= right - left
                 
-            left = max(0, left - 1)
-            right = min(n, right + 1)
+            if left > 0:
+                left -= 1
+            if right < n:
+                right += 1
+                
             if left == 0 and right == n:
                 return res + maxSum//n
             
