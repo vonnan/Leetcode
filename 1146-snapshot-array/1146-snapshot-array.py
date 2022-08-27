@@ -1,24 +1,22 @@
+from bisect import bisect
+
 class SnapshotArray:
 
     def __init__(self, length: int):
         self.size = length
-        self.array = defaultdict(dict)
+        self.array = {i: [[-1, 0]] for i in range(self.size)}
         self.id = 0
 
     def set(self, index: int, val: int) -> None:
-        self.array[self.id][index] = val
+        self.array[index].append([self.id, val])
 
     def snap(self) -> int:
         self.id += 1
         return self.id - 1
 
     def get(self, index: int, snap_id: int) -> int:
-        while snap_id and index not in self.array[snap_id]:
-            snap_id -= 1
-        if snap_id == 0 and index not in self.array[0]:
-            return 0
-        return self.array[snap_id][index]
-        
+        idx = bisect(self.array[index], [snap_id, inf])
+        return self.array[index][idx - 1][1]
 
 
 # Your SnapshotArray object will be instantiated and called as such:
