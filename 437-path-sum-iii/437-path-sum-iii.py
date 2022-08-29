@@ -6,28 +6,25 @@
 #         self.right = right
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
-        memo = {0:1}
+        memo = defaultdict(int)
+        memo[0] = 1
         
-        def dfs(node, presum, target):
+        def dfs(node, presum):
             if not node:
                 return 0
+            
             count = 0
             
             curr = presum + node.val
-            if curr - target in memo:
-                count += memo[curr - target]
+            if curr - targetSum in memo:
+                count += memo[curr - targetSum]
+                
+            memo[curr] += 1
             
-            if curr in memo:
-                memo[curr] += 1
-            else:
-                memo[curr] = 1
-            
-            count += dfs(node.left, curr, target)
-            count += dfs(node.right, curr, target)
+            count += dfs(node.left, curr)
+            count += dfs(node.right, curr)
             
             memo[curr] -= 1
             return count
         
-        return dfs(root, 0, targetSum)
-            
-            
+        return dfs(root, 0)
