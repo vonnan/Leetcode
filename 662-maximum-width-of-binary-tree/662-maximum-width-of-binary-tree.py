@@ -8,16 +8,16 @@ class Solution:
     def widthOfBinaryTree(self, root: Optional[TreeNode]) -> int:
         q = deque([(root, 0)])
         res = 1
-        
         while q:
             m = len(q)
             for _ in range(m):
                 node, pos = q.popleft()
                 if node.left:
-                    q.append((node.left, 2*pos+1))
+                    q.append((node.left, 2 * pos))
                 if node.right:
-                    q.append((node.right, 2 * pos+2))
+                    q.append((node.right, 2 * pos + 1))
+                    
             if q:
                 res = max(res, q[-1][1] - q[0][1] + 1)
+                
         return res
-            
