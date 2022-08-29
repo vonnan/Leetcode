@@ -1,10 +1,6 @@
 # Write your MySQL query statement below
-SELECT (SELECT num
-        FROM MyNumbers
-        Group By num
-        HAVING count(*) = 1
-        
-        UNION ALL
-        SELECT NULL
-        
-        ORDER BY num DESC Limit 1) num
+SELECT (select num 
+       from MyNumbers
+       group by num
+       having count(*) = 1
+       order by num desc limit 1) num
