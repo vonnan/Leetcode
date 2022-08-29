@@ -7,12 +7,17 @@ class Solution:
             nei[v].add(u)
             
         MHT = set(range(n))
+        leaves = set([u for u in MHT if len(nei[u])== 1])
         
         while len(MHT) > 2:
-            leaves = set([u for u in MHT if len(nei[u]) == 1])
             MHT -= leaves
+            new = set([])
             for u in leaves:
                 for v in nei[u]:
                     nei[v].remove(u)
-        
+                    if v in MHT and len(nei[v]) == 1:
+                        new.add(v)
+            leaves = new
+                    
         return MHT
+                
