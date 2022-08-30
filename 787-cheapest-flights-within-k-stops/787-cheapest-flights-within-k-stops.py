@@ -6,7 +6,7 @@ class Solution:
         nei = defaultdict(dict)
         for u, v, cost in flights:
             nei[u][v] = cost
-        print(nei)
+       
         
         heap = [(0, 0, src)]
         seen = {src: 0}
