@@ -1,34 +1,34 @@
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        P, A = set([]), set([])
-        
         row, col = len(heights), len(heights[0])
         
-        P = set([(r,c) for r in range(row) for c in range(col) if r == 0 or c == 0])
-        A= set([(r,c)  for r in range(row) for c in range(col) if r == row - 1 or c == col -1])
+        P = set([(0, c) for c in range(col)]) | set([(r, 0) for r in range(row)])
+        A = set([(row -1, c) for c in range(col)]) | set([(r, col -1) for r in range(row)])
         
         path = [(0,1), (0, -1), (1, 0), (-1, 0)]
+        q = deque(list(P))
+        seen = P
         
+        while q:
+            r, c = q.popleft()
+            #print(r,c, P)
+            for dr, dc in path:
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < row and 0 <= nc < col and ((nr, nc) not in seen) and heights[nr][nc] >= heights[r][c]:
+                    q.append((nr, nc))
+                    seen.add((nr, nc))
+                    P.add((nr, nc))
         
-        def helper(P):
-            q = deque(list(P))
-            visited = P
+        q = deque(list(A))
+        seen = A
         
-            while q:
-                m = len(q)
-                for _ in range(m):
-                    r, c = q.popleft()
-                    for dr, dc in path:
-                        nr, nc = r + dr, c + dc
-                        if 0 <= nr < row and 0 <= nc < col and (nr, nc) not in visited and heights[nr][nc] >= heights[r][c]:
-                            visited.add((nr, nc))
-                            q.append((nr, nc))
-                            P.add((nr, nc))
-                
-        
-        helper(P)
-        helper(A)
+        while q:
+            r, c = q.popleft()
+            for dr, dc in path:
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < row and 0 <= nc < col and (nr, nc) not in seen and heights[nr][nc] >= heights[r][c]:
+                    q.append((nr, nc))
+                    seen.add((nr, nc))
+                    A.add((nr, nc))
         
         return P & A
-        
-            
