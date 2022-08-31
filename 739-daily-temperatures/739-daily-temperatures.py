@@ -13,3 +13,4 @@ class Solution:
                 res.append(stack[-1] - i)
             stack.append(i)
         return res[::-1]
+                
