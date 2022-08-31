@@ -1,19 +1,27 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        A = set(wordDict)
-        q, n = deque([0]), len(s)
-        visited = set([0])
+        q = deque([0])
+        
+        dic = defaultdict(set)
+        for word in wordDict:
+            dic[word[0]].add(word)
+        
+        seen = set([0])
+        n = len(s)
+        
         while q:
             pos = q.popleft()
-            for word in A:
-                m = len(word)
-                if pos + m <= n:
-                    if s[pos:pos + m] == word:
-                        if pos + m == n:
-                            return True
-                        if pos + m not in visited:
-                            q.append(pos + m)
-                            visited.add(pos+ m)
+            if pos == n:
+                return True
+            
+            for word in dic[s[pos]]:
+                np = pos + len(word)
+                if np not in seen and s[pos:np] == word:
+                    q.append(np)
+                    seen.add(np)
+            
         return False
             
+        
+        
         
