@@ -1,7 +1,7 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        sets = set([()])
+        res = set([()])
         for num in nums:
-            for x in sorted(sets):
-                sets.add(tuple([num] + list(x)))
-        return sets
+            res |= {tuple(list(x) + [num]) for x in res}
+            
+        return res
