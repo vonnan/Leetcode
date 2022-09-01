@@ -9,17 +9,22 @@ class Solution:
         q = deque([(root, 1)])
         res = 1
         while q:
-            node, level = q.popleft()
-            if node.left:
-                if node.left.val == node.val + 1:
-                    q.append((node.left, level + 1))
-                    res = max(res, level + 1)
-                else:
-                    q.append((node.left, 1))
-            if node.right:
-                if node.right.val == node.val + 1:
-                    q.append((node.right, level + 1))
-                    res = max(res, level + 1)
-                else:
-                    q.append((node.right, 1))
+            m = len(q)
+            for _ in range(m):
+                node, val = q.popleft()
+                if node.left:
+                    if node.left.val == node.val + 1:
+                        q.append((node.left, val + 1))
+                        res = max(res, val + 1)
+                    else:
+                        q.append((node.left, 1))
+                
+                if node.right:
+                    if node.right.val == node.val + 1:
+                        q.append((node.right, val + 1))
+                        res = max(res, val + 1)
+                    else:
+                        q.append((node.right, 1))
+        
         return res
+                    
