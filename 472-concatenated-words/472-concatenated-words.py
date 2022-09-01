@@ -6,7 +6,7 @@ class Solution:
             dic[word[0]].append(word)
             
         for c in dic:
-            dic[c].sort(key = len, reverse = 1)
+            dic[c].sort(key = len)
             
         def check(word, pos, seen):
             if pos == len(word):
@@ -25,6 +25,8 @@ class Solution:
         
         res = []
         for word in words:
+            if len(word) < len(dic[word[0]][0]):
+                continue
             seen = set([])
             if check(word, 0, seen):
                 res.append(word)
