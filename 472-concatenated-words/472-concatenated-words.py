@@ -1,12 +1,19 @@
 class Solution:
     def findAllConcatenatedWordsInADict(self, words: List[str]) -> List[str]:
         dic = defaultdict(list)
+        ban = set([])
+        min_ = len(min(words, key = len))
         
         for word in words:
             dic[word[0]].append(word)
             
         for c in dic:
             dic[c].sort(key = len)
+            first = len(dic[c][0])
+            for word in dic[c]:
+                if len(word) < first + min_:
+                    ban.add(word)
+            
             
         def check(word, pos, seen):
             if pos == len(word):
@@ -25,7 +32,7 @@ class Solution:
         
         res = []
         for word in words:
-            if len(word) < len(dic[word[0]][0]):
+            if word in ban:
                 continue
             seen = set([])
             if check(word, 0, seen):
