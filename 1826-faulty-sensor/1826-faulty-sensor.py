@@ -8,6 +8,6 @@ class Solution:
             return -1
         if sensor1[i:-1] == sensor2[i + 1:]:
             return 1
-        elif sensor2[i:-1] == sensor1[i + 1:]:
+        else:
             return 2
         
