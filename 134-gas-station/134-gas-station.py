@@ -3,24 +3,20 @@ class Solution:
         if sum(gas) < sum(cost):
             return -1
         
-        diff = [g - c  for g, c in zip(gas, cost)]
-       
-        diff += diff
-        n = len(gas)
-        diff = diff[::-1]
+        diff = [g - c for g,c in zip(gas, cost)]
         
+        n = len(diff)
         presum, ct = 0, 0
-        while diff:
-            nxt = presum + diff.pop()
-            if  nxt < 0:
+        print(diff)
+        diff += diff
+        for i, d in enumerate(diff):
+            presum += d
+            if presum < 0:
                 presum, ct = 0, 0
             else:
-                presum = nxt
                 ct += 1
                 if ct == n:
-                    return n - len(diff)
+                    return i - n + 1
         return -1
                 
             
-        
-        
