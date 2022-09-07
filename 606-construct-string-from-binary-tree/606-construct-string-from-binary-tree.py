@@ -9,17 +9,12 @@ class Solution:
         if not root:
             return ""
         
-        res = ""
         left = self.tree2str(root.left)
         right = self.tree2str(root.right)
+        
         if left or right:
             left = "(" + left + ")"
         if right:
             right = "(" + right + ")"
-        
+            
         return str(root.val) + left + right
-        
-        
-            
-            
-            
