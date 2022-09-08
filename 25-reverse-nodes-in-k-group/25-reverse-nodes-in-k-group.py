@@ -18,5 +18,5 @@ class Solution:
         
         for _ in range(k):
             head.next, tail, head = tail, head, head.next
-            
+        
         return tail
