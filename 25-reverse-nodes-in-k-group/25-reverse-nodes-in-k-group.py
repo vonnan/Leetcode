@@ -13,10 +13,10 @@ class Solution:
             if not tail:
                 return head
             tail = tail.next
-            
+           
         tail = self.reverseKGroup(tail, k)
-        
+       
         for _ in range(k):
             head.next, tail, head = tail, head, head.next
-        
+            
         return tail
