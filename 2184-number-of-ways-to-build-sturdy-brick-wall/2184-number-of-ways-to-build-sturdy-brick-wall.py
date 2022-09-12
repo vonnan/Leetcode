@@ -4,7 +4,6 @@ class Solution:
             return 0
         
         bricks.sort()
-        
         options = []
     
         def dfs(path): 
@@ -12,8 +11,9 @@ class Solution:
                 options.append(tuple(path[1:-1]))    
             for b in bricks:
                 if path[-1] + b <= width:
-                
                     dfs(path + [path[-1] + b])
+                else:
+                    break
         path = [0]
         
         nei = defaultdict(set)
