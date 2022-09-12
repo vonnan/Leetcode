@@ -9,8 +9,7 @@ class Solution:
     
         def dfs(path): 
             if path[-1] == width:
-                options.append(tuple(path[1:-1]))
-                
+                options.append(tuple(path[1:-1]))    
             for b in bricks:
                 if path[-1] + b <= width:
                 
@@ -21,7 +20,6 @@ class Solution:
         dfs(path)
         for i, combo_i in enumerate(options):
             for j, combo_j in enumerate(options):
-                
                 if not (set(list(combo_i)) & set(list(combo_j))):
                     nei[i].add(j)
         mod = 10**9 + 7 
