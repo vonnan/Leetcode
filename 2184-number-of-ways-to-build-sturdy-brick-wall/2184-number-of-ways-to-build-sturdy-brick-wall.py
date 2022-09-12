@@ -29,7 +29,8 @@ class Solution:
         for _ in range(height - 1):
             dp2 = [0] * len(options)
             for i in range(len(options)):
-                dp2[i] = sum(dp[j] for j in nei[i])
+                if nei[i]:
+                    dp2[i] = sum(dp[j] for j in nei[i])
         
             dp = dp2
             
