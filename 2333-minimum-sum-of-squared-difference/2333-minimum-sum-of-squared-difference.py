@@ -12,7 +12,7 @@ class Solution:
         
         for key, val in counter.items():
             heappush(heap, (-key, val))
-        print(heap)    
+          
         while k:
             neg, val = heappop(heap)
             if k // val >= heap[0][0] - neg:
@@ -25,7 +25,7 @@ class Solution:
                 heappush(heap, (nxt, val - r))
                 heappush(heap, (nxt + 1, r))
                 break
-        print(heap)
+        
         return sum(neg**2 * val for neg, val in heap)
                 
                 
