@@ -5,7 +5,7 @@ class Solution:
         n = len(cookies)
         if n <= k:
             return max(cookies)
-            
+           
         def dfs(path, pos):
             if pos == n:
                 self.res = min(self.res, max(path))
