@@ -12,15 +12,13 @@ class Solution:
             
         for a, b in edges:
             ct = scores[a] + scores[b]
+            
             for su, u in nei[a]:
-                if u == b:
-                    continue
-                else:
-                    for sv, v in nei[b]:
-                        if v== a or v == u:
-                            continue
-                        else:
-                            res = max(res, ct + su + sv)
+                if u == b: continue
+                
+                for sv, v in nei[b]:
+                    if v== a or v == u: continue
+                    res = max(res, ct + su + sv)
         
         return res if res else -1
                 
