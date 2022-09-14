@@ -20,8 +20,6 @@ class Solution:
             
             if ct == k:
                 return arr[0]
-        
-        
             
             
             
