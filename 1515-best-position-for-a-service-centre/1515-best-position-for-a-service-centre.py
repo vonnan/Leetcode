@@ -13,7 +13,7 @@ class Solution:
         x_step, y_step = x_max- x_min, y_max - y_min
         
         curr = dist(x, y)
-        while x_step** 2 + y_step**2 > 10**(-12):
+        while x_step** 2 + y_step**2 > 10**(-11):
             curr = dist(x, y)
             if curr > dist(x + x_step, y + y_step):
                 x += x_step
