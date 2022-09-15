@@ -5,7 +5,7 @@ class Solution:
             return 1
         
         while i < n:
-            arr.extend([arr[-1] ^ 3] * arr[i])
+            arr.extend([3 - arr[-1] ] * arr[i])
             i += 1
         
         return arr[:n].count(1)
