@@ -9,12 +9,9 @@ class Solution:
             return head
         
         curr = head
-        
         while curr and curr.next:
-            
-            while curr.next and curr.val == curr.next.val:
+            while curr.next and curr.next.val == curr.val:
                 curr.next = curr.next.next
-                
             curr = curr.next
         
         return head
