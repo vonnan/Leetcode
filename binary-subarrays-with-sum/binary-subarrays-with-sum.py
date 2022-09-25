@@ -1,16 +1,12 @@
-from itertools import accumulate
-from collections import Counter
 class Solution:
     def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
-        presum = list(accumulate([0] + nums))
-        counter = Counter(presum)
-        
+        lst = [0] + list(accumulate(nums))
         res = 0
-        if goal ==0:
-            return sum(val*(val-1)//2 for _, val in counter.items())
+        counter = Counter([])
         
-        for key in sorted(counter.keys()):
-            if key - goal in counter:
-                res += counter[key] * counter[key - goal]
-                
+        for num in lst:
+            if num - goal in counter:
+                res += counter[num - goal]
+            counter[num] += 1
+            
         return res
