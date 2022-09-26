@@ -1,16 +1,22 @@
-from sortedcontainers import SortedList
+from heapq import heappush
+from heapq import heappop
+
 class KthLargest:
 
     def __init__(self, k: int, nums: List[int]):
-        self.SL = SortedList()
+        self.heap = []
         self.k = k 
         for num in nums:
-            self.SL.add(num)
+            heappush(self.heap, num)
+        while len(self.heap) >k:
+            heappop(self.heap)
 
     def add(self, val: int) -> int:
-        self.SL.add(val)
+        heappush(self.heap, val)
+        if len(self.heap) > self.k:
+            heappop(self.heap)
         
-        return self.SL[-self.k]
+        return self.heap[0]
 
 
 # Your KthLargest object will be instantiated and called as such:
