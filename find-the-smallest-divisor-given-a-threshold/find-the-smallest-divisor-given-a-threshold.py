@@ -1,14 +1,14 @@
 from math import ceil
+
 class Solution:
     def smallestDivisor(self, nums: List[int], threshold: int) -> int:
-        if sum(nums)<= threshold:
-            return 1
-        lo, hi = 1, max(nums)
-        while lo < hi:
-            mid = (lo + hi)//2
-            if sum(ceil(num/mid) for num in nums) <= threshold:
-                hi = mid
-            else:
-                lo = mid + 1
-        return lo
+        nums.sort()
+        left, right = 1, nums[-1]
         
+        while left < right:
+            mid = (left + right)//2
+            if sum(ceil(num/ mid) for num in nums) <= threshold:
+                right = mid
+            else:
+                left = mid + 1
+        return left
