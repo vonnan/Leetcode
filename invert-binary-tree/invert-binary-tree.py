@@ -13,6 +13,5 @@ class Solution:
             node.left, node.right = dfs(node.right), dfs(node.left)
             
             return node
-                
+        
         return dfs(root)
-       
