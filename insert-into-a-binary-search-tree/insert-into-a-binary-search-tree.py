@@ -9,23 +9,13 @@ class Solution:
         if not root:
             return TreeNode(val)
         
-        def dfs(node):
-            if not node:
-                return 
+        if val > root.val:
+            root.right = self.insertIntoBST(root.right, val)
             
-            if val < node.val:
-                if not node.left:
-                    node.left = TreeNode(val)
-                    return
-                else:
-                    dfs(node.left)
-            else:
-                if not node.right:
-                    node.right = TreeNode(val)
-                    return
-                else:
-                    dfs(node.right)
+        elif val < root.val:
+            root.left = self.insertIntoBST(root.left, val)
+            
         
-        dfs(root)
         return root
-                
+        
+        
