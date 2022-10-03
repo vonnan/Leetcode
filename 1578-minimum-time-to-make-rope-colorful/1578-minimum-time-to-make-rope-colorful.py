@@ -1,22 +1,21 @@
 from bisect import insort
 
 class Solution:
-    def minCost(self, colors: str, neededTime: List[int]) -> int:
+    def minCost(self, colors: str, A: List[int]) -> int:
+        res = sum(A)
         
-        prev = colors[0]
-        cost =  neededTime[0]
-        lst = [cost]
-        res = 0
+        prev, max_ = colors[0], A[0]
         
-        for c,t in zip(colors[1:], neededTime[1:]):
-            if c != prev:
-                res += cost - lst[-1]
-                cost = t
-                lst = [t]
+        for c, t in zip(colors[1:], A[1:]):
+            if c == prev:
+                max_= max(max_, t)
             else:
-                cost += t
-                insort(lst, t)
+                res -= max_
+                max_ = t
             prev = c
-        return res + cost - lst[-1]
+        
+        return res - max_
+                
+                
                     
                 
