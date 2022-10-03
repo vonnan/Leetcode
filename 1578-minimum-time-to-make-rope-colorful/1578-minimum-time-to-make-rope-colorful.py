@@ -7,7 +7,7 @@ class Solution:
         cost =  neededTime[0]
         lst = [cost]
         res = 0
-        print(lst, res, cost)
+        
         for c,t in zip(colors[1:], neededTime[1:]):
             if c != prev:
                 res += cost - lst[-1]
