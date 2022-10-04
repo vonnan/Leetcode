@@ -5,10 +5,14 @@ class Solution:
         def dfs(r,c):
             if 0 <= r < row and 0 <= c < col and grid[r][c] == 1:
                 grid[r][c] = 0
-                return 1 + dfs(r + 1, c) + dfs(r - 1, c) + dfs(r, c + 1) + dfs(r, c - 1)
+                return 1 + dfs(r, c + 1) + dfs(r, c - 1) + dfs(r + 1, c) + dfs(r - 1, c)
             return 0
+        
         res = 0
         for r in range(row):
             for c in range(col):
-                res = max(res, dfs(r,c))
+                if grid[r][c]:
+                    res = max(res, dfs(r, c))
+        
         return res
+                
