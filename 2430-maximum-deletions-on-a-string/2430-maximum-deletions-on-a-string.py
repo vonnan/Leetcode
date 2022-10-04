@@ -1,25 +1,25 @@
-
 class Solution:
     def deleteString(self, s: str) -> int:
-        if len(s) == len(set(s)):
-            return 1
-        
-        if len(set(s)) ==1:
+        n = len(s)
+        if len(set(s)) == 1:
             return len(s)
         
-        n = len(s)
+        if n == len(set(s)):
+            return 1
         
-        @lru_cache(None)
-        def dp(i):
-            res = 1
-            
-            for j in range(i + 1, n):
-                if s[i] == s[j] and s[i:j] == s[j: j + (j - i)]:
-                    res = max(res, 1 + dp(j))
-            
-            return res
+        dp = [1] * ( n + 1)
         
-        return dp(0)
+        for i in range(n, -1, -1):
+            for d in range(1, min(n - i, i)+ 1):
+                #print(i, d, s[i:i+d], s[i-d:i])
+                if s[i:i + d] == s[i - d :i]:
+                    dp[i - d] = max(dp[i-d], dp[i] + 1)
+                    #print(dp)
+        
+                
+            
                     
-           
+                    
+        
+        return dp[0]
             
