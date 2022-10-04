@@ -11,15 +11,8 @@ class Solution:
         
         for i in range(n, -1, -1):
             for d in range(1, min(n - i, i)+ 1):
-                #print(i, d, s[i:i+d], s[i-d:i])
                 if s[i:i + d] == s[i - d :i]:
                     dp[i - d] = max(dp[i-d], dp[i] + 1)
-                    #print(dp)
-        
-                
-            
-                    
-                    
         
         return dp[0]
             
