@@ -1,20 +1,17 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        res = set([])
         
-        def dfs(path, left, right):
+        res = []
+        
+        def dfs(left, right, path):
             if len(path) == 2*n:
-                res.add(tuple(path))
-                return
-            
+                res.append(path)
+                
             if left < n:
-                dfs(path + "(", left +1, right)
+                dfs(left + 1, right, path + "(")
             
-            if right < n and left > right:
-                dfs(path + ")", left, right + 1)
-                
-        dfs("", 0, 0)
+            if right < left:
+                dfs(left, right + 1, path + ")")
         
-        return ["".join(x) for x in res]
-                
-                
+        dfs(0,0, "")
+        return res
