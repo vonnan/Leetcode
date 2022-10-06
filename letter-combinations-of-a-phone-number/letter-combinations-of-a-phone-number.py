@@ -4,11 +4,16 @@ class Solution:
         if not digits:
             return []
         
-        res = set([""])
+        res = set([])
+        n = len(digits)
+        def dfs(word, path):
+            if not word and len(path) == n:
+                res.add(path)
+            
+            for i, s in enumerate(word):
+                for c in dic[s]:
+                    
+                    dfs(word[i+1:], path + c)
         
-        for c in digits:
-            new = set([])
-            for nxt in dic[c]:
-                new |= set([word + nxt for word in res] )
-            res = new
+        dfs(digits, "")
         return res
