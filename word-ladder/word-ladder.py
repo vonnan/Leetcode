@@ -1,30 +1,35 @@
 class Solution:
-    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-        dic = defaultdict(list)
-        n = len(beginWord)
+    def ladderLength(self, start: str, end: str, List: List[str]) -> int:
+        if end not in List:
+            return 0
         
-        for word in wordList:
-            for i in range(n):
-                dic[word[:i] + "*" + word[i+1:]].append(word)
+        List = list(set([start] + List))
+        
+        nei = defaultdict(set)
+        seen = set([end])
+        n = len(start)
+        
+        for i, a in enumerate(List):
+            for k in range(n):
+                nei[a[:k] + "*" + a[k+1:]].add(a)
                 
-        queue = deque([beginWord])
-        seen = set()
-        step = 1
-        
-        while queue:
-            m = len(queue)
+        q = deque([end])
+        res = 1
+        while q:
+            res += 1
+            m = len(q)
             for _ in range(m):
-                q = queue.popleft()
-                for i in range(n):
-                    mask = q[:i] + "*" + q[i+1:]
-                    if mask in dic:
-                        for word in dic[mask]:
-                            if word == endWord:
-                                return step + 1
-                            if word not in seen:
-                                seen.add(word)
-                                queue.append(word)
-                        del dic[mask]
-            step += 1
-        
+                word = q.popleft()
+                for k in range(n):
+                    new = word[:k] + "*" + word[k+1:]
+                    for nxt in nei[new]:
+                        if nxt == start:
+                            return res
+                        
+                        if nxt not in seen:
+                            seen.add(nxt)
+                            q.append(nxt)
         return 0
+                            
+        
+        
