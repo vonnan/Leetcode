@@ -4,20 +4,19 @@ class TimeMap:
 
     def __init__(self):
         self.dic = defaultdict(list)
-        self.time = defaultdict(int)
+        self.time = {}
 
     def set(self, key: str, value: str, timestamp: int) -> None:
         self.dic[key].append(timestamp)
         self.time[timestamp] = value
 
     def get(self, key: str, timestamp: int) -> str:
-        if key not in self.dic:
+        idx = bisect(self.dic[key], timestamp) - 1
+        
+        if idx == -1:
             return ""
-        lst = self.dic[key]
-        idx = bisect(lst, timestamp)
-        if idx == 0:
-            return ""
-        return self.time[lst[idx - 1]]
+        return self.time[self.dic[key][idx]]
+        
 
 
 # Your TimeMap object will be instantiated and called as such:
