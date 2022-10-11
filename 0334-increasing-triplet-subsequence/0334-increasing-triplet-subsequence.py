@@ -13,4 +13,4 @@ class Solution:
                 LIS[idx] = num
             
         
-        return len(LIS) >= 3
+        return False
