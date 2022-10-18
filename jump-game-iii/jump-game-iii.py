@@ -1,16 +1,22 @@
 class Solution:
     def canReach(self, arr: List[int], start: int) -> bool:
-        visited = set([start])
         q = deque([start])
+        seen = set([start])
         n = len(arr)
+        
         while q:
-            pos = q.popleft()
-            val = arr[pos]
-            if val == 0:
+            node = q.popleft()
+            length = arr[node]
+            if length == 0:
                 return True
-            lst = [pos - val, pos + val]
-            for x in lst:
-                if 0 <= x < n and x not in visited:
-                    visited.add(x)
-                    q.append(x)
+            
+            left, right = node - length, node  + length
+            if 0 <= left < n and left not in seen:
+                q.append(left)
+                seen.add(left)
+            if 0 <= right < n and right not in seen:
+                q.append(right)
+                seen.add(right)
+        
         return False
+            
