@@ -9,14 +9,13 @@ class Solution:
         
         def cntSwaps(a):
             m = {n: j for j, n in enumerate(sorted(a))}
-            cnt = i = 0
-            while i < len(a):
-                j = m[a[i]]
-                if i != j:
-                    a[i], a[j] = a[j], a[i]
+            cnt = 0
+            for i in range(len(a)):
+                
+                while m[a[i]] != i:
+                    j = m[a[i]]
+                    a[j], a[i] = a[i], a[j]
                     cnt += 1
-                else:
-                    i += 1
             return cnt
         
         q = deque([root])
