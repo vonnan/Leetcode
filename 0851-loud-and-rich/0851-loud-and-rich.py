@@ -8,7 +8,8 @@ class Solution:
             graph[b].append(a)
             
         res = [-1] * n
-        @cache
+       
+        @lru_cache(None)
         def dfs(i):
             if res[i] > 0:
                 return res
