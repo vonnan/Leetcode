@@ -1,6 +1,6 @@
 class SparseVector:
     def __init__(self, nums: List[int]):
-        self.dic = [num for num in nums]
+        self.dic = nums
 
     # Return the dotProduct of two sparse vectors
     def dotProduct(self, vec: 'SparseVector') -> int:
